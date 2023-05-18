@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "animejs": "^3.2.1",
     "core-js": "^3.8.3",
     "css-loader": "^6.7.3",
     "flowbite": "^1.6.5",
