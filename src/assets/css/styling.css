@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer components {
+    .card {
+      background-color: theme('colors.white');
+      border-radius: theme('borderRadius.lg');
+      padding: theme('spacing.6');
+      box-shadow: theme('boxShadow.xl');
+    }
+    /* ... */
+   
+  }
+
+ul {
+    padding-left: 22px;
+    margin: 50px 0 60px 0;
+   
+ }
+ 
+li {
+     list-style: none;
+     margin-top: 10px;
+ }
