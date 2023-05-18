@@ -58,7 +58,7 @@
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
-import homeView from "@/views/HomeView.vue"
+import homeView from "@/components/HomeView.vue"
 export default {
   name: 'App',
   components: {
