@@ -49,21 +49,21 @@
 </nav>
 
 <router-view />
-<!-- <div>
+<div>
   <HomeView />
-</div> -->
+</div> 
 
 </template>
 
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
-//import homeView from "@/views/HomeView.vue"
+import homeView from "@/views/HomeView.vue"
 export default {
   name: 'App',
-  //components: {
-  //  HomeView:homeView
-  //},  
+  components: {
+    HomeView:homeView
+  },  
 }
 </script>
 
