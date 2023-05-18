@@ -2,10 +2,10 @@
 
 <nav class="bg-yellow border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-12">
-      <div class="flex items-center">
-        <img src="@/assets/logoimg.png" class="h-14 mr-14" alt="Logoimg" />
+    <router-link to="/home"><div class="flex items-center">
+          <img src="@/assets/logoimg.png" class="h-14 mr-14" alt="Logoimg" />
         <span class="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">Study Sturdy</span>
-      </div>
+      </div></router-link>
   <div class="flex md:order-2">
     <button type="button" data-collapse-toggle="navbar-search" aria-controls="navbar-search" aria-expanded="true" class="md:hidden text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 mr-1" >
       <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
@@ -49,21 +49,15 @@
 </nav>
 
 <router-view />
-<div>
-  <HomeView />
-</div> 
 
 </template>
 
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
-import homeView from "@/components/HomeView.vue"
 export default {
   name: 'App',
-  components: {
-    HomeView:homeView
-  },  
+
 }
 </script>
 
