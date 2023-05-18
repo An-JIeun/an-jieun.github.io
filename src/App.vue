@@ -2,7 +2,7 @@
 
 <nav class="bg-yellow border-gray-200 dark:bg-gray-900">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-12">
-    <router-link to="/home"><div class="flex items-center">
+    <router-link to="/"><div class="flex items-center">
           <img src="@/assets/logoimg.png" class="h-14 mr-14" alt="Logoimg" />
         <span class="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">Study Sturdy</span>
       </div></router-link>
@@ -32,10 +32,10 @@
       </div>
       <ul class="flex flex-col p-4 md:p-2 mt-0 rounded-lg bg-yellow md:flex-row md:space-x-10 md:mt-0 md:border-0 md:bg-yellow dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
         <li>
-          <router-link to="/home"><a class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md  md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" aria-current="page">Home</a></router-link>
+          <router-link to="/"><a class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md  md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Home</a></router-link>
         </li>
         <li>
-          <router-link to="/about"><a href="#" class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a></router-link>
+          <router-link to="/about"><a class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a></router-link>
         </li>
         <li>
           <router-link to="/portfolios"><a class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Portfolios</a></router-link>
