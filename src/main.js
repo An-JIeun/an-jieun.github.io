@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import "./index.css";
+import VNetworkGraph from "v-network-graph"
+import "v-network-graph/lib/style.css"
 
 
 
@@ -11,4 +13,8 @@ import "./index.css";
 // import Vue from 'vue'
 
 const app = createApp(App)
-app.use(router).mount('#app')
+app.use(router).use(VNetworkGraph).mount('#app')
+
+// network graph 추가
+
+

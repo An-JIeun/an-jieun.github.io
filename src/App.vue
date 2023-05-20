@@ -49,15 +49,18 @@
 </nav>
 
 <router-view />
-
+<Footer></Footer>
 </template>
 
 
 <script>
 //import HelloWorld from './components/HelloWorld.vue'
+import FooterView from "@/components/FooterView.vue"
 export default {
   name: 'App',
-
+  components : {
+    Footer : FooterView 
+  },  
 }
 </script>
 
