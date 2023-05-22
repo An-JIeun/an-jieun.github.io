@@ -41,7 +41,7 @@
           <router-link to="/portfolios"><a class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Portfolios</a></router-link>
         </li>
         <li>
-          <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Study</a>
+          <a href="/study" class="block py-2 pl-3 pr-4 text-gray-900 text-2xl rounded hover:bg-yellow md:hover:bg-mint md:hover:shadow-md md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Study</a>
         </li>
       </ul>
     </div>

@@ -11,6 +11,7 @@
     "animejs": "^3.2.1",
     "core-js": "^3.8.3",
     "css-loader": "^6.7.3",
+    "d3-force": "^3.0.0",
     "flowbite": "^1.6.5",
     "flowbite-vue": "0.0.10",
     "node-sass": "^8.0.0",
