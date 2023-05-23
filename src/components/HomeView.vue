@@ -154,7 +154,7 @@ const configs = reactive(
   vNG.defineConfigs({
     view : {
   layoutHandler: new ForceLayout({
-    positionFixedByDrag: false,
+    positionFixedByDrag: true,
     positionFixedByClickWithAltKey: true,
     createSimulation: (d3, nodes, edges) => {
       const forceLink = d3.forceLink(edges).id(d => d.id)
