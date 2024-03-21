@@ -5,12 +5,12 @@ layout: home
 hero:
   name: "전자두뇌만들기"
   text: "Studying all about making electronic brain"
-  tagline: My great project tagline
+  tagline: LLM, ML, Knowledge Graph, .. 
   actions:
     - theme: brand
-      text: Markdown Examples
+      text: GITHUB
       link: /markdown-examples
-    - theme: alt
+    - theme: ABOUT ME
       text: API Examples
       link: /api-examples
 

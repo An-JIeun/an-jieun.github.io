@@ -4,6 +4,8 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "전자두뇌만들기",
   description: "Studying all about making electronic brain",
+  lastUpdated: true,
+  ignoreDeadLinks: true,
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -23,6 +25,10 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
-    ]
+    ],
+    footer: {
+      // message: 'Docs are released under the MIT License.',
+      copyright: "Copyright © 2024 전자두뇌만들기",
+    },
   }
 })
