@@ -4,22 +4,25 @@ layout: home
 
 hero:
   name: "전자두뇌만들기"
-  text: "Studying all about making electronic brain"
-  tagline: LLM, ML, Knowledge Graph, .. 
+  text: "How to make a CYBER MAN"
+  tagline: LLM, ML, Knowledge Graph .. 
   actions:
     - theme: brand
       text: GITHUB
       link: /markdown-examples
-    - theme: ABOUT ME
-      text: API Examples
+    - theme: alt
+      text: Profile
       link: /api-examples
 
 features:
-  - title: Feature A
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+  - title: MATH
+    details: 그러하다 수학이다
+    link: /MATH/README
+  - title: LLM
+    details: 트랜스포머부터 RAG까지
+    link: /LLM/README
+  - title: Knowledge Graph
+    details: 온톨로지, 메타데이터와 지식그래프
+    link: /KG/README
 ---
 

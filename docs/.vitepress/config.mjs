@@ -30,5 +30,8 @@ export default defineConfig({
       // message: 'Docs are released under the MIT License.',
       copyright: "Copyright © 2024 전자두뇌만들기",
     },
+    search: {
+      provider: "local",
+    },
   }
 })
