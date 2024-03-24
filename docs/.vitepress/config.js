@@ -15,6 +15,8 @@ export default{
     },
     plugins: ["markdown-it-html5-embed"],
   },
+  build:{outdif:"/theme/"},
+  logo:"/static/logo/logo.png",
   plugins: ["markdown-it-html5-embed"],
   description: "ALL about making artificial intelligence",
   themeConfig: {

@@ -15,6 +15,7 @@ $$
 에러가 최저가 되는 지점은 각각 w, b에 대해 에러 식을 미분하면 구할 수 있다.
 
 - w에 대해 미분
+
 $$
 \frac{\sigma}{\sigma w} \Sigma_1^N e^2 = \frac{\sigma}{\sigma w} \Sigma_1^N(y_i - (wx_i +b))^2
 \newline
@@ -26,6 +27,7 @@ $$
 $$
 
 - b에 대해 미분
+
 $$
 \frac{\sigma}{\sigma b} \Sigma_1^N e^2 = \Sigma_1^N (y_i - (wx_i +b)) = 0
 \newline
@@ -36,8 +38,7 @@ $$
 
 합에 대한 식의 연립은 역행렬 연산을 통해 구할 수 있다.
 
-$$
-\begin{bmatrix} 
+$$\begin{bmatrix} 
     \Sigma(2x_i^2) & \Sigma ( x_i(\frac{y_i}{b}_i+1)) \\
      \Sigma (-x_i) & \Sigma (\frac{y_i}{b}-1) \\ 
 \end{bmatrix}
@@ -51,9 +52,4 @@ b\\
 \begin{bmatrix}
 0\\
 0\\
-\end{bmatrix}
-
-\newline
-\newline
-
-$$
+\end{bmatrix}$$
