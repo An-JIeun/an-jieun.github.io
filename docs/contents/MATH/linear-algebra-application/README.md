@@ -18,4 +18,4 @@ layout:
 ## 추가 자료
 
 * [DeepLearning Book (Ian Goodfellow)](https://www.deeplearningbook.org/)
-*
+

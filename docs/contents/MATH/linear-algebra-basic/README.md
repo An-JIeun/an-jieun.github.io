@@ -15,7 +15,7 @@ layout:
 
 # 🌱 선형대수-기초
 
-<figure><img src="../../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../imgs/인블로그썸네일.png" alt=""><figcaption></figcaption></figure>
 
 ***
 

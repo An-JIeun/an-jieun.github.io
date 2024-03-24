@@ -12,12 +12,11 @@
 
 ### 지식과 그래프
 
-<aside>
 💡 지식그래프란?
 
 **명시적으로 정의된 관계**로 연결된 **사실(facts)의 네트워크로**, 관계를 통해 **새로운 지식이 유추** 될 수 있다. 지식그래프는 ‘온톨로지’로 알려진 **기반 구조**나 스키마에 따라 구축된다.
 
-</aside>
+
 
 - **사실의 네트워크**
     - 지식그래프에서의 지식의 기본 단위는 사실과, 해당 사실과 관계된 사실, 그리고 두 사실 간의 관계로 표현된다.
@@ -34,11 +33,6 @@
     
 - **기반 구조**
     
-    <aside>
-    💡 real world object — Calssified by Taxanomy → Class A’s Entity 
-    Class A’s Entity e —Relation *R* Defined by Ontology — Class B’s Entity e’
-    
-    </aside>
     
     - **클래스(Class)**
         

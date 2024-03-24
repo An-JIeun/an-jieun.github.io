@@ -1,8 +1,10 @@
-
+import vue from "@vitejs/plugin-vue";
+import { onBeforeMount, onMounted } from "vue";
 // https://vitepress.dev/reference/site-config
-export default({
+export default{
   title: "전자두뇌만들기",
   lastUpdated: true,
+  outline:[2,3],
   // markdown-it-footnote
   markdown: {
     lineNumbers: true,
@@ -13,6 +15,7 @@ export default({
     },
     plugins: ["markdown-it-html5-embed"],
   },
+  plugins: ["markdown-it-html5-embed"],
   description: "ALL about making artificial intelligence",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -93,4 +96,4 @@ export default({
       { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
     ]
   }
-})
+}

@@ -32,7 +32,7 @@
 
 <details>
     <summary>아핀변환 (Affine Transformation)</summary>
-    ㅇㅇ
+    TBD
 </details>
 
 

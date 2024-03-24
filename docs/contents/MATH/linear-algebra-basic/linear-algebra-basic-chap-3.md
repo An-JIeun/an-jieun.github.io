@@ -55,13 +55,12 @@ $$
 
 행렬에 대한 곱셈은 벡터의 내적을 통해 이뤄진다. 행렬을 각각 행 벡터, 열 벡터로 쪼갠 후, 행,열 벡터에 대해 내적 한 값이 행렬곱이다. 결국엔 벡터에 대한 내적 연산이므로, 행 벡터로 쪼개지는 좌측 연산자의 열 개수와 열 벡터들로 쪼개지는 우측 연산자의 행 개수가 동일해야 한다.
 
-![img1](../../../imgs/[linear-algebra-basic]3-2.jpg)
+![img1](../../imgs/[linear-algebra-basic]3-2.jpg)
 
 $$m*n$$벡터와 $$n*k$$ 벡터의 곱셈연산의 결과 벡터는 $$m*k$$ 벡터이다.
 
 일반적인 곱셈 연산과는 다르기에, 곱셈의 교환법칙은 성립하지 않으나 결합법칙, 분배법칙, 단위원 성질, 0의 곱셈성질은 동일하다.
 
-<a name="section"></a>
 
 ### 행렬곱의 관점
 
@@ -69,7 +68,7 @@ $$m*n$$벡터와 $$n*k$$ 벡터의 곱셈연산의 결과 벡터는 $$m*k$$ 벡�
 
     행렬곱을 두 행렬의 행, 열 벡터 각각의 내적으로 보는 관점이다. 행렬에서 각 요소들을 각각 행벡터, 열벡터로 보고, 이 행 벡터들과 열 벡터들의 각 내적을 구하는 방법으로, 일반적인 행렬곱 풀이에 적용되는 관점이다.
 
-    ![img2](../../../imgs/[linear-algebra-basic]3-2.jpg)
+    ![img2](../../imgs/[linear-algebra-basic]3-2.jpg)
 
     기본적으로 벡터는 컬럼 기반이다. 위 그림에서 A, B는 행렬이 아니고 벡터들을 변수로 치환한 벡터이다. 그 과정에서, A는 전치 벡터들로 구성되었고, B는 일반 벡터(열벡터)로 구성되었다. 그리고 이 둘의 곱은, 전치 벡터와 일반 벡터의 내적으로 구해진다.
 2.  **rank-1 matrix 합**
@@ -85,13 +84,13 @@ $$m*n$$벡터와 $$n*k$$ 벡터의 곱셈연산의 결과 벡터는 $$m*k$$ 벡�
     $$
 3.  **column space 관점**
 
-    ![img1](../../../imgs/[linear-algebra-basic]3-6.png)
+    ![img1](../../imgs/[linear-algebra-basic]3-6.png)
 
-    ![img2](../../../imgs/[linear-algebra-basic]3-3.png)
+    ![img2](../../imgs/[linear-algebra-basic]3-3.png)
 
     선형연립방정식 및 선형회귀에서 차용하는 관점이다. 열벡터에 스칼라인 변수를 곱해 나오는 스팬 값으로 변수의 해를 찾는 방식이다.
 
-![img3](../../../imgs/[linear-algebra-basic]3-4.png)
+![img3](../../imgs/[linear-algebra-basic]3-4.png)
 
 4.  **row-space 관점**
 
@@ -99,9 +98,9 @@ $$m*n$$벡터와 $$n*k$$ 벡터의 곱셈연산의 결과 벡터는 $$m*k$$ 벡�
 
     주로 딥러닝 분야에서 취하는 관점이다. 행 벡터의 각 요소를 선형결합의 형태로 표현할 수 있기 때문이다. (리스트로 한번에 표현하여 쌓아버리는게 용이하기 때문)
 
-    ![img4](../../../imgs/[linear-algebra-basic]3-5.png)
+    ![img4](../../imgs/[linear-algebra-basic]3-5.png)
 
-***
+
 
 ## 벡터의 사영과 내적
 
@@ -112,19 +111,19 @@ A벡터와 B벡터의 내적 값은 곧 A 벡터와 B 벡터의 **닮은 정도*
 벡터의 내적은 각 벡터의 크기와, 두 벡터의 사잇각의 곱으로 구할 수 있다.
 
 $$
-a \cdot b = ||b||cos\theta||a||
+a \cdot b = ||b|| cos\theta ||a||
 $$
 
 ### 벡터의 크기 구하기
 
 $$
-||A||\cdot \frac{B}{\sqrt{B^TB}}
+|A| \cdot \frac{B}{\sqrt{B^TB}}
 $$
 
 앞선 장에서 설명했듯이, 벡터의 크기는 벡터의 모든 요소의 제곱합에 제곱근을 취한 값이다.
 
 $$
-||A|| = \sqrt{\sum_{i \in A}a_i^2}
+|A| = \sqrt{\sum_{i \in A}a_i^2}
 $$
 
 또는, 다음과 같은 방식으로 나타낼 수도 있다.
@@ -136,7 +135,7 @@ $$
 단위벡터를 구하는 방식을 위의 공식을 활용해 나타내면 다음과 같다.
 
 $$
-unitA =\frac{A}{||A||}= \frac{A}{\sqrt{A^TA}}
+unitA =\frac{A}{ ||A|| }= \frac{A}{\sqrt{A^TA}}
 $$
 
 ### 정사영
@@ -146,14 +145,14 @@ $$
 삼각함수를 이용하면, 정사영 벡터의 크기를 구할 수 있다.
 
 $$
-||proj_{a}b|| = ||b||cos\theta
+|| proj_{a}b || = ||b|| cos\theta
 $$
 
 하지만 $$\theta$$를 알기 어려운 경우가 대부분이다. 사잇각을 모를 때, 벡터 b의 종점과 a에 내린 수선의 발 까지의 거리가 최소라는 점을 이용해 식을 유도하는 방법이 있다.
 
 *   **정사영 공식 유도**
 
-    ![정사영유도.jpg](../../../imgs/[linear-algebra-basic]3-1.jpg)
+    ![정사영유도.jpg](../../imgs/[linear-algebra-basic]3-1.jpg)
 
 $$\theta$$값 없이 정사영을 구하는 공식은 다음과 같다.
 
@@ -166,22 +165,28 @@ $$
 벡터a의 단위벡터를 정사영 벡터의 크기를 구하는 식에 곱하면 정사영 벡터를 구할 수 있다.
 
 $$
-proj_ab = ||b||cos\theta\frac{a}{|a|}
+proj_ab = ||b||cos\theta\frac{a}{a}
 $$
 
 즉, 유도한 공식(사잇각 모를때 구하는 방법)과 equation 하면
 
 $$
-a(\frac{a\cdot b}{a \cdot a}) = ||b||cos\theta\frac{a}{||a||}
+a(\frac{a\cdot b}{a \cdot a}) = ||b||cos\theta\frac{a}{a}
 $$
 
 이 식에서 a와 b의 내적을 유도할 수 있다.
 
-$$
-\frac{a\cdot b}{a \cdot a} = \frac{||b|| cos \theta}{||a||} \newline \newline a \cdot a = ||a||^2 \newline \newline \therefore \frac{a \cdot b}{||a||^2} = \frac{||b||cos\theta}{||a||}\newline \newline a \cdot b= ||b||cos\theta \frac{||a||^2}{||a||}\newline \newline \therefore a \cdot b = ||b||cos\theta||a||
-$$
 
-***
+$$\frac{a\cdot b}{a \cdot a} = \frac{||b|| cos \theta}{||a||} 
+\newline \newline
+ a \cdot a = ||a||^2 
+\newline \newline 
+\therefore \frac{a \cdot b}{||a||^2} = \frac{||b||cos\theta}{ ||a|| }
+\newline \newline a \cdot b= ||b||cos\theta \frac{||a||^2}{||a||}
+\newline \newline 
+\therefore a \cdot b = ||b|| cos\theta ||a||$$
+
+
 
 ## python에서 내적 계산 방법
 
