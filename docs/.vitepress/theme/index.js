@@ -8,9 +8,9 @@ import {useData, useRoute} from 'vitepress';
 export default {
   extends: DefaultTheme,
   setup() {
-    const { frontmatter } = usdData();
+    const { frontmatter } = useData();
     const route = useRoute();
-    
+
   },
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
