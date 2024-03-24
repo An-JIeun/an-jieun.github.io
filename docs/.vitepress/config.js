@@ -45,13 +45,13 @@ export default{
           {text : "선형대수 - 응용",
           collapsed : true,
           items : [
-            {text : "1. 고유값과 고유벡터", link: "/contents/MATH/linear-algebra-application/[intermediate]chap-1.html"},
-            {text : "2. 특이값과 특이값분해", link: "/contents/MATH/linear-algebra-application/[intermediate]chap-2.html"},
-            {text : "3. PCA (TBD)", link: "/contents/MATH/linear-algebra-application/[intermediate]chap-3.html"},
-            {text : "4. 선형회귀와 다중회귀", link: "/contents/MATH/linear-algebra-application/[intermediate]chap-4.html"},
-            {text : "5. 시그모이드와 로지스틱", link: "/contents/MATH/linear-algebra-application/[intermediate]chap-5.html"}
+            {text : "1. 고유값과 고유벡터", link: "/contents/MATH/linear-algebra-application/intermediate-chap-1.html"},
+            {text : "2. 특이값과 특이값분해", link: "/contents/MATH/linear-algebra-application/intermediate-chap-2.html"},
+            {text : "3. PCA (TBD)", link: "/contents/MATH/linear-algebra-application/intermediate-chap-3.html"},
+            {text : "4. 선형회귀와 다중회귀", link: "/contents/MATH/linear-algebra-application/intermediate-chap-4.html"},
+            {text : "5. 시그모이드와 로지스틱", link: "/contents/MATH/linear-algebra-application/intermediate-chap-5.html"}
           ]},
-          { text: 'Automatic Differentiate', link: '/contents/api-examples' }]
+          { text: 'Automatic Differentiate', link: '/contents/MATH/automatic-differentiate.html' }]
         }   
       ,
       {
