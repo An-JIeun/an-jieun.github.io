@@ -1,3 +1,0 @@
-# Knowlege Graph 101
-
----

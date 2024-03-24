@@ -1,28 +1,26 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-
+logo: /static/logo/logo.png
 hero:
   name: "전자두뇌만들기"
-  text: "How to make a CYBER MAN"
-  tagline: LLM, ML, Knowledge Graph .. 
+  text: "ALL about artificial intelligence"
+  tagline: LLM, ML, Knowledge Graph, and ...
+  logo: /static/logo/logo.png
   actions:
     - theme: brand
-      text: GITHUB
-      link: /markdown-examples
-    - theme: alt
       text: Profile
+      link: /contents/profile
+    - theme: alt
+      text: Github
       link: /api-examples
 
 features:
   - title: MATH
-    details: 그러하다 수학이다
-    link: /MATH/README
+    details: 인공지능을 하려면 수학을 해야지
   - title: LLM
     details: 트랜스포머부터 RAG까지
-    link: /LLM/README
   - title: Knowledge Graph
-    details: 온톨로지, 메타데이터와 지식그래프
-    link: /KG/README
+    details: 온톨로지와 지식그래프
 ---
 
