@@ -148,3 +148,8 @@ div.VPContent.is-home span.clip {
 div.VPContent.is-home div.main p.text {
   font-size: 35px !important;
 }
+
+/* 수식 작성할 때 2번 표기되는 것 방지 */
+span.katex-html {
+  display: none;
+}

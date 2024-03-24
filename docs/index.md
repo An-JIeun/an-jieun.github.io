@@ -18,9 +18,12 @@ hero:
 features:
   - title: MATH
     details: 인공지능을 하려면 수학을 해야지
+    link: /contents/MATH/math-main
   - title: LLM
     details: 트랜스포머부터 RAG까지
+    link: /contents/LLM/llm-main
   - title: Knowledge Graph
     details: 온톨로지와 지식그래프
+    lintk: /contents/KG/kg-main
 ---
 
