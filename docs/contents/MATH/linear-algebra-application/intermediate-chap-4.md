@@ -16,25 +16,22 @@ $$
 
 - w에 대해 미분
 
-$$
-\frac{\sigma}{\sigma w} \Sigma_1^N e^2 = \frac{\sigma}{\sigma w} \Sigma_1^N(y_i - (wx_i +b))^2
-\newline
-\frac{\sigma}{\sigma w} \Sigma_1^N e^2 = \Sigma_1^N -2x_i(y_i - (wx_i +b)) = 0
-\newline
-\Sigma_1^N(2x_i^2)w -2x_i(\frac{y_i}{b}_i+1)b = 0
-\newline
-\Sigma (2x_i^2)w - 2\Sigma x_i(\frac{y_i}{b}+1)b = 0
-$$
+$\frac{\sigma}{\sigma w} \Sigma_1^N e^2 = \frac{\sigma}{\sigma w} \Sigma_1^N(y_i - (wx_i +b))^2$
+
+$\frac{\sigma}{\sigma w} \Sigma_1^N e^2 = \Sigma_1^N -2x_i(y_i - (wx_i +b)) = 0$
+
+$\Sigma_1^N(2x_i^2)w -2x_i(\frac{y_i}{b}_i+1)b = 0$
+
+$\Sigma (2x_i^2)w - 2\Sigma x_i(\frac{y_i}{b}+1)b = 0
+$
 
 - b에 대해 미분
 
-$$
-\frac{\sigma}{\sigma b} \Sigma_1^N e^2 = \Sigma_1^N (y_i - (wx_i +b)) = 0
-\newline
-\Sigma_1^N (-x_i)w +(\frac{y_i}{b}-1)b = 0
-\newline
-\Sigma (-x_i)w + \Sigma (\frac{y_i}{b}-1)b = 0
-$$
+$\frac{\sigma}{\sigma b} \Sigma_1^N e^2 = \Sigma_1^N (y_i - (wx_i +b)) = 0$
+
+$\Sigma_1^N (-x_i)w +(\frac{y_i}{b}-1)b = 0$
+
+$\Sigma (-x_i)w + \Sigma (\frac{y_i}{b}-1)b = 0$
 
 합에 대한 식의 연립은 역행렬 연산을 통해 구할 수 있다.
 

@@ -12,12 +12,14 @@ export default{
     config: (md) => {
       md.use(require("markdown-it-katex"));
       md.use(require("markdown-it-footnote"));
+      md.use(require("markdown-it-mathjax3"))
     },
     plugins: ["markdown-it-html5-embed"],
   },
-  build:{outdif:"/theme/"},
+  lang: "ko-KR",
+  build: {outDir:"/theme/"},
   logo:"/static/logo/logo.png",
-  plugins: ["markdown-it-html5-embed"],
+  head:[["link", { rel: "icon", href: "/static/logo/logo.png" }]],
   description: "ALL about making artificial intelligence",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
