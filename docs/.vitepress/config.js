@@ -147,7 +147,7 @@ function getJSONLD(pageData) {
   "name":"${pageData.frontmatter.title}",
   "url" : "https://an-jieun.github.io/contents/${pageData.frontmatter.url}",
   "description":"${pageData.frontmatter.description}",
-  "keywords" : ${pageData.frontmatter.keywords},
+  "keywords" : [${pageData.frontmatter.keywords}],
   "version":"1.0",
   "inLanguage":"ko",
   "technicalAudience" : "developer",
