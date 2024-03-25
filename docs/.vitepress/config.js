@@ -17,6 +17,7 @@ export default{
     plugins: ["markdown-it-html5-embed"],
   },
   lang: "ko-KR",
+  search:{provider:"local"},
   build: {outDir:"/theme/"},
   logo:"/static/logo/logo.png",
   head:[["link", { rel: "icon", href: "/static/logo/logo.png" }]],
@@ -97,7 +98,9 @@ export default{
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/vuejs/vitepress' }
+      { icon: 'github', link: 'https://github.com/An-JIeun/an-jieun.github.io' },
+      {icon : 'x', link: "https://twitter.com/lempicka_in_"},
+  
     ]
   }
 }

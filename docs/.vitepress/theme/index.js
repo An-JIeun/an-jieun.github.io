@@ -11,6 +11,8 @@ export default {
     const { frontmatter } = useData();
     const route = useRoute();
 
+    
+
   },
   Layout: () => {
     return h(DefaultTheme.Layout, null, {

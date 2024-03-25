@@ -222,7 +222,7 @@ torch.dot(torch.tensor([]), torch.tensor([]))
 tf.reduce_sum(tf.multiply(X,Y))
 ```
 
-***
+
 
 ## Ref
 
