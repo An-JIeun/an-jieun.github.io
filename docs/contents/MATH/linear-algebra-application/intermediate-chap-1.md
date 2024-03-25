@@ -1,3 +1,9 @@
+---
+title: 1. 고유값과 고유벡터
+description: 고유값과 고유벡터란 무엇인가
+keywords: ["선형대수", "고유값", 'eigenvalue']
+url: "MATH/linear-algebra-application/intermediate-chap-1.html"
+---
 # 1. 고유값과 고유벡터
 
 ## 고유벡터와 고유값
@@ -185,9 +191,9 @@ $V^{-1}AV = \Lambda$
 
     대각합은 대각선상의 성분들을 더하는 것이다.
 
-    $$tr(A) = tr(V\Lambda V^{-1})$$이고, 대각합의 성질 상, $$tr(V\Lambda V^{-1}) = tr(\Lambda VV^{-1})$$ 로도 정리할 수 있다.
+    $tr(A) = tr(V\Lambda V^{-1})$이고, 대각합의 성질 상, $tr(V\Lambda V^{-1}) = tr(\Lambda VV^{-1})$ 로도 정리할 수 있다.
     
-    $$tr(\Lambda VV^{-1}) = tr(\Lambda)$$ 이므로, $$tr(A) = tr(\Lambda)$$이다. 
+    $tr(\Lambda VV^{-1}) = tr(\Lambda)$ 이므로, $tr(A) = tr(\Lambda)$이다. 
     
     따라서,
     
@@ -219,7 +225,7 @@ $V^{-1}AV = \Lambda$
         y\\
     \end{bmatrix}$$
     
-    $Av = \lambda v$
+    $$Av = \lambda v$$
     
     $$
     \begin{bmatrix} 

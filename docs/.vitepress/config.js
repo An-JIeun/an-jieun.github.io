@@ -1,7 +1,19 @@
 import vue from "@vitejs/plugin-vue";
 import { onBeforeMount, onMounted } from "vue";
 // https://vitepress.dev/reference/site-config
-export default{
+export default {
+  async transformPageData(pageData) {
+    pageData.frontmatter.head ??= [];
+
+    let newheader = getJSONLD(pageData);
+    pageData.frontmatter.head.push([
+      "script",
+      { type: "application/ld+json" },
+      `${newheader}`,
+    ]);
+    getOGTag(pageData);
+  },
+
   title: "전자두뇌만들기",
   lastUpdated: true,
   outline:[2,3],
@@ -103,4 +115,84 @@ export default{
   
     ]
   }
+}
+
+function getJSONLD(pageData) {
+  return `{
+  "@context":"http://schema.org",
+  "@type":"BloPosting",
+  "mainEntityOfPage" : {
+    "@type" : "WebPage",
+    "@id" : "https://an-jieun.github.io/contents${pageData.frontmatter.url}"
+  },
+  "name":"${pageData.frontmatter.title}",
+  "url" : "https://an-jieun.github.io/contents/${pageData.frontmatter.url}",
+  "description":"${pageData.frontmatter.description}",
+  "keywords" : ${pageData.frontmatter.keywords},
+  "version":"1.0",
+  "inLanguage":"ko",
+  "technicalAudience" : "developer",
+  "proficiencyLevel" : "beginner",
+  "author" : {
+    "@type" : "Person",
+    "name" : "Jieun",
+    "email" : "aje20010827@gmail.com"
+    
+    }
+  },
+  "dependencies" : "Python",
+  "proficiencyLevel" : "beginner",
+  "technicalAudience" : "developer, DBA, Web Developer"
+}`;
+}
+
+function getOGTag(pageData) {
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "og:title", content: pageData.frontmatter.title },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "og:description", content: pageData.frontmatter.description },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "og:url", content: pageData.frontmatter.url },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "og:type", content: "website" },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "og:site_name", content: "전자두뇌만들기" },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "og:locale", content: "ko_KR" },
+  ]);
+  const metaData = {
+    "@context": "http://schema.org",
+    "@type": "TechArticle",
+    name: pageData.frontmatter.title,
+    url: `https://an-jieun.github.io/contents/${pageData.frontmatter.url}`,
+    description: pageData.frontmatter.description,
+    keywords: pageData.frontmatter.keywords, // 배열을 쉼표로 구분된 문자열로 변환
+    version: "1.0",
+    inLanguage: "ko",
+    technicalAudience: "developer, DBA, Web Developer",
+    proficiencyLevel: "beginner",
+    author: "Jieun",
+    dependencies: "Python", // 추가 정보에 따라 수정 가능
+  };
+
+  const metaTags = Object.entries(metaData).map(([key, value]) => {
+    // 특수 문자를 이스케이프 처리하여 메타 태그 생성
+    const content =
+      typeof value === "string" ? value.replace(/"/g, "&quot;") : value;
+    pageData.frontmatter.head.push([
+      "meta",
+      { property: key, content: content },
+    ]);
+  });
 }
