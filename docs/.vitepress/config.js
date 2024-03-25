@@ -106,6 +106,13 @@ export default {
             ] }
         ]
       },
+      {
+        text: 'Vitepress',
+        collapsed : false,
+        items: [
+          { text: 'Github Page로 Vitepress 디플로이', link: "/contents/VITEPRESS/git-deploy.html"}
+        ]
+      },
     ],
 
     socialLinks: [

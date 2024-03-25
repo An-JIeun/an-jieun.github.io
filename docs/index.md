@@ -24,6 +24,9 @@ features:
     link: /contents/LLM/llm-main
   - title: Knowledge Graph
     details: 온톨로지와 지식그래프
-    lintk: /contents/KG/kg-main
+    link: /contents/KG/kg-main
+  - title : Vitepress
+    details : Vitepress 잘 쓰는 법
+    link : /contents/VITEPRESS/vitepress-main
 ---
 
