@@ -149,19 +149,13 @@ function getJSONLD(pageData) {
   "headline":"${pageData.frontmatter.description}",
   "description":"${pageData.frontmatter.description}",
   "keywords" : [${pageData.frontmatter.keywords}],
-  "version":"1.0",
   "inLanguage":"ko",
-  "technicalAudience" : "developer",
-  "proficiencyLevel" : "beginner",
   "author" : {
     "@type" : "Person",
     "name" : "Jieun",
     "email" : "aje20010827@gmail.com"
     }
   },
-  "dependencies" : "Python",
-  "proficiencyLevel" : "beginner",
-  "technicalAudience" : "developer, DBA, Web Developer"
 }`;
 }
 
