@@ -34,7 +34,7 @@ export default {
   head:[["link", { rel: "icon", href: "../static/icon/logo.svg" }],
   [
     'script',
-    { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=306630807' }
+    { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-VYQYCC9ZZS' }
   ],
   [
     'script',
@@ -42,7 +42,7 @@ export default {
     `window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '306630807');`
+    gtag('config', 'G-VYQYCC9ZZS');`
   ]
 ],
   description: "ALL about making artificial intelligence",
