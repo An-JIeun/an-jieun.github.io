@@ -31,7 +31,20 @@ export default {
   lang: "ko-KR",
   search:{provider:"local"},
   build: {outDir:"/theme/"},
-  head:[["link", { rel: "icon", href: "../static/icon/logo.svg" }]],
+  head:[["link", { rel: "icon", href: "../static/icon/logo.svg" }],
+  [
+    'script',
+    { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=306630807' }
+  ],
+  [
+    'script',
+    {},
+    `window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '306630807');`
+  ]
+],
   description: "ALL about making artificial intelligence",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
