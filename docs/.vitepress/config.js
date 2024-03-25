@@ -31,8 +31,7 @@ export default {
   lang: "ko-KR",
   search:{provider:"local"},
   build: {outDir:"/theme/"},
-  logo:"/static/logo/logo.png",
-  head:[["link", { rel: "icon", href: "/static/logo/logo.png" }]],
+  head:[["link", { rel: "icon", href: "/contents/imgs/logo.png" }]],
   description: "ALL about making artificial intelligence",
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
@@ -43,7 +42,7 @@ export default {
       // message: 'Docs are released under the MIT License.',
       copyright: "Copyright © 2024 전자두뇌만들기.",
     },
-    logo:"/static/logo/logo.png",
+    logo:"/contents/imgs/logo.png",
     sidebar: [
       {
         text: 'MATH',
