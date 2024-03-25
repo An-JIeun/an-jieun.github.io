@@ -139,13 +139,14 @@ export default {
 function getJSONLD(pageData) {
   return `{
   "@context":"http://schema.org",
-  "@type":"BloPosting",
+  "@type":"BlogPosting",
   "mainEntityOfPage" : {
     "@type" : "WebPage",
     "@id" : "https://an-jieun.github.io/contents${pageData.frontmatter.url}"
   },
   "name":"${pageData.frontmatter.title}",
   "url" : "https://an-jieun.github.io/contents/${pageData.frontmatter.url}",
+  "headline":"${pageData.frontmatter.description}",
   "description":"${pageData.frontmatter.description}",
   "keywords" : [${pageData.frontmatter.keywords}],
   "version":"1.0",
@@ -156,7 +157,6 @@ function getJSONLD(pageData) {
     "@type" : "Person",
     "name" : "Jieun",
     "email" : "aje20010827@gmail.com"
-    
     }
   },
   "dependencies" : "Python",
