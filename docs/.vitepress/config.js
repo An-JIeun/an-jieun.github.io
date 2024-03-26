@@ -73,6 +73,7 @@ export default {
         },
           {text : "선형대수 - 응용",
           collapsed : true,
+          link: '/contents/MATH/linear-algebra-application/intermediate-chap-0.html',
           items : [
             {text : "1. 고유값과 고유벡터", link: "/contents/MATH/linear-algebra-application/intermediate-chap-1.html"},
             {text : "2. 특이값과 특이값분해", link: "/contents/MATH/linear-algebra-application/intermediate-chap-2.html"},
