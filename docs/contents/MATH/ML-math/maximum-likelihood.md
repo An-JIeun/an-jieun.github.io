@@ -1,9 +1,10 @@
 ---
-title: 최대우도추정
-description: 가우시안 확률 모델을 기반으로 한 최대우도추정 방법
-keywords: ["머신러닝", "확률변수", '가우시안', '최대우도']
-url: "MATH/ML-math/maximum-likelibood.html"
+title : 최대우도추정
+description: Vitepress로 Github page 디플로이 하는 방법
+keywords : '"머신러닝", "확률변수", "가우시안", "최대우도"'
+url : "MATH/ML-math/maximum-likelibood.html"
 ---
+
 # 최대우도추정
 
 로지스틱 회귀와 선형 회귀에서는 입력값에 대한 출력값을 예측하는 선형함수를 찾거나, 입력값에 따라 잘 분류할 수 있는 로직을 구성하는 매개변수를 찾는 것이 목표였다. 아무튼 회귀를 쓴다는 것은 데이터의 분포형태를 예상할 수 없는 경우에 사용한다. 
