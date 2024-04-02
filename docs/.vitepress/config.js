@@ -203,6 +203,10 @@ function getOGTag(pageData) {
     "meta",
     { name: "twitter:description", content: pageData.frontmatter.description },
   ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { name: "twitter:image", content: "../static/icon/logo.png" },
+  ]);
  
   const metaData = {
     "@context": "http://schema.org",
