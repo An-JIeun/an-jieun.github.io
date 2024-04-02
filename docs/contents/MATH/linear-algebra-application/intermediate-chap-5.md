@@ -21,6 +21,10 @@ url: "MATH/linear-algebra-application/intermediate-chap-1.html"
 
 따라서 $w^tx$가 직교, 즉 0의 값을 가지면 완전히 상이함을, 양/음의 값을 가지면 x 벡터와 w벡터가 어느정도 유사성을 띄고 있음을 의미한다. 여기에 시그모이드 함수를 적용함으로써 계산된 값을 확률적으로 표현하게 된다.
 
+$w$와 $w_0(=b)$의 값에 따라 시그모이드 함수가 조정되며 성능이 향상되는 과정을 간단히 보면 아래 사진과 같다.
+
+![img](../../imgs/logis.gif)
+
 :::info 💡시그모이드 함수와 우도
 ### 시그모이드 함수
 
@@ -162,33 +166,33 @@ $$
 
 자연로그가 있으므로, 자연로그 내부의 식은 $u$로 치환하여, 연쇄 법칙을 적용하여 미분해야 한다.
 
-**1. $w$에 대해 미분하기**
+> **1. $w$에 대해 미분하기**
 
 $$
-\frac{\sigma}{\sigma w}twx + \frac{\sigma}{\sigma w}ln(u),\space u = 1+e^{-wx}
+\frac{\partial}{\partial w}twx + \frac{\partial}{\partial w}ln(u),\space u = 1+e^{-wx}
 $$
 
 $$
-tx+\frac{\sigma}{\sigma u}ln(u)\frac{\sigma u}{\sigma w}
+tx+\frac{\partial}{\partial u}ln(u)\frac{\partial u}{\partial w}
 $$
 
-**2. $u$에 대해 미분하기**
+> **2. $u$에 대해 미분하기**
 $$
-\frac{\sigma}{\sigma u}ln(u) = \frac{1}{u}
-$$
-
-**3. $u$를 $w$에 대해 미분하기**
-$$
-\frac{\sigma u}{\sigma w} = -xe^{-wx}
+\frac{\partial}{\partial u}ln(u) = \frac{1}{u}
 $$
 
-**4. 대입하기**
+> **3. $u$를 $w$에 대해 미분하기**
+$$
+\frac{\partial u}{\partial w} = -xe^{-wx}
+$$
+
+> **4. 대입하기**
 $$
 tx + (1+e^{-wx})^{-1}(-xe^{-wx}) = x(t-(1+e^{-wx})^{-1}(e^{-wx}))
 $$
 
 
-**5. 미분값이 0이 되는 지점의 w 구하기**
+> **5. 미분값이 0이 되는 지점의 w 구하기**
 
 - $t = 1$ 인 경우
 
