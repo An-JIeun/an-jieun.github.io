@@ -179,7 +179,7 @@ function getOGTag(pageData) {
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { property: "og:url", content: pageData.frontmatter.url },
+    { property: "og:url", content: "https://an-jieun.github.io/" },
   ]);
   pageData.frontmatter.head.push([
     "meta",
@@ -195,7 +195,7 @@ function getOGTag(pageData) {
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { name: "twitter:card", content: pageData.frontmatter.description },
+    { name: "twitter:card", content:"summary" },
   ]);
   pageData.frontmatter.head.push([
     "meta",
