@@ -22,7 +22,7 @@ export default {
       darkTheme: "dark_tritanopia",
       emitMetadata: 1,
       lang: "ko",
-      loading: "lazy",
+      loading: "lazy"
 
   }, {
       frontmatter, route

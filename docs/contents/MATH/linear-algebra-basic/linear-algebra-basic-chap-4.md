@@ -1,3 +1,11 @@
+---
+title: 4. 행렬 성질
+description: 딥러닝에서 자주 등장하는 주요 행렬 성질들
+keywords: ["선형대수", "행렬성질", '딥러닝', '행렬']
+url: "MATH/linear-algebra-basic/linear-algebra-basic-chap-4.html"
+img : "/static/img/[linear-algebra-basic]4-2.png"
+---
+
 # 4. 행렬 성질
 
 ## 대칭행렬 (Symetric Matrix)

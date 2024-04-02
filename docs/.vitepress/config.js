@@ -62,6 +62,14 @@ export default {
         collapsed : false,
         link:'/contents/MATH/math-main.html',
         items: [
+          { text: '미적분학', 
+          collapsed : true,
+          link :'/contents/MATH/calculus/cal-chap-0.html', 
+          items:[
+            {text : "1. 미분", link: "/contents/MATH/calculus/cal-chap-1.html"},
+            {text : "2. 편미분", link: "/contents/MATH/calculus/cal-chap-2.html"},
+          ]
+        },
           { text: '선형대수 - 기초', 
           collapsed : true,
           items:[
@@ -184,6 +192,22 @@ function getOGTag(pageData) {
   pageData.frontmatter.head.push([
     "meta",
     { property: "og:locale", content: "ko_KR" },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "twitter:card", content: pageData.frontmatter.description },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "twitter:title", content: pageData.frontmatter.title },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "twitter:description", content: pageData.frontmatter.description },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
+    { property: "twitter:image", content: pageData.frontmatter.description },
   ]);
   const metaData = {
     "@context": "http://schema.org",
