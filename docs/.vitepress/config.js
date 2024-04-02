@@ -195,15 +195,15 @@ function getOGTag(pageData) {
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { property: "twitter:card", content: pageData.frontmatter.description },
+    { name: "twitter:card", content: pageData.frontmatter.description },
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { property: "twitter:title", content: pageData.frontmatter.title },
+    { name: "twitter:title", content: pageData.frontmatter.title },
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { property: "twitter:description", content: pageData.frontmatter.description },
+    { name: "twitter:description", content: pageData.frontmatter.description },
   ]);
  
   const metaData = {
