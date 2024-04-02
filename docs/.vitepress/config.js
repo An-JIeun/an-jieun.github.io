@@ -207,7 +207,7 @@ function getOGTag(pageData) {
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { property: "twitter:image", content: pageData.frontmatter.description },
+    { property: "twitter:image", content: pageData.frontmatter.img },
   ]);
   const metaData = {
     "@context": "http://schema.org",
