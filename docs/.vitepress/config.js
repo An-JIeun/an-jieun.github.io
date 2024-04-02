@@ -205,10 +205,7 @@ function getOGTag(pageData) {
     "meta",
     { property: "twitter:description", content: pageData.frontmatter.description },
   ]);
-  pageData.frontmatter.head.push([
-    "meta",
-    { property: "twitter:image", content: pageData.frontmatter.img },
-  ]);
+ 
   const metaData = {
     "@context": "http://schema.org",
     "@type": "TechArticle",
