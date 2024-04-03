@@ -1,9 +1,8 @@
 ---
 title : 최대우도추정
-description: Vitepress로 Github page 디플로이 하는 방법
+description: 가우시안 확률 밀도 함수 매개변수 추정법
 keywords : '"머신러닝, 확률변수, 가우시안, 최대우도"'
 url : "MATH/ML-math/maximum-likelihood.html"
-
 ---
 
 # 최대우도추정

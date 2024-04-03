@@ -186,6 +186,10 @@ function getOGTag(pageData) {
   
   pageData.frontmatter.head.push([
     "meta",
+    { property: "og:image", content: "../static/icon/logo.svg" },
+  ]);
+  pageData.frontmatter.head.push([
+    "meta",
     { property: "og:site_name", content: "전자두뇌만들기" },
   ]);
   pageData.frontmatter.head.push([
@@ -194,7 +198,7 @@ function getOGTag(pageData) {
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { name: "twitter:card", content:"summary" },
+    { name: "twitter:card", content:"summary_large_image" },
   ]);
   pageData.frontmatter.head.push([
     "meta",
@@ -206,7 +210,7 @@ function getOGTag(pageData) {
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { name: "twitter:image", content: "../static/icon/logo.png" },
+    { name: "twitter:image", content: "../static/icon/logo.svg" },
   ]);
  
   const metaData = {
