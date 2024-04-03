@@ -186,7 +186,7 @@ function getOGTag(pageData) {
   
   pageData.frontmatter.head.push([
     "meta",
-    { property: "og:image", content: "../static/icon/logo.svg" },
+    { property: "og:image", content: "https://an-jieun.github.io/static/icon/logo.svg" },
   ]);
   pageData.frontmatter.head.push([
     "meta",
@@ -210,7 +210,7 @@ function getOGTag(pageData) {
   ]);
   pageData.frontmatter.head.push([
     "meta",
-    { name: "twitter:image", content: "../static/icon/logo.svg" },
+    { name: "twitter:image", content: "https://an-jieun.github.io/static/icon/logo.svg" },
   ]);
  
   const metaData = {
