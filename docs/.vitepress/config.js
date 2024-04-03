@@ -183,6 +183,7 @@ function getOGTag(pageData) {
     "meta",
     { property: "og:type", content: "website" },
   ]);
+  
   pageData.frontmatter.head.push([
     "meta",
     { property: "og:site_name", content: "전자두뇌만들기" },
@@ -225,8 +226,11 @@ function getOGTag(pageData) {
 
   const metaTags = Object.entries(metaData).map(([key, value]) => {
     // 특수 문자를 이스케이프 처리하여 메타 태그 생성
-    const content =
-      typeof value === "string" ? value.replace(/"/g, "&quot;") : value;
+    let content =
+      typeof value === "string" ? value : value;
+    if (key === 'keywords') {
+        content = typeof value === "string" ? value.replace(/"/g, '') : value;
+      }
     pageData.frontmatter.head.push([
       "meta",
       { property: key, content: content },

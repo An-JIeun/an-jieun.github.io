@@ -1,8 +1,9 @@
 ---
 title : 최대우도추정
 description: Vitepress로 Github page 디플로이 하는 방법
-keywords : '"머신러닝", "확률변수", "가우시안", "최대우도"'
-url : "MATH/ML-math/maximum-likelibood.html"
+keywords : '"머신러닝, 확률변수, 가우시안, 최대우도"'
+url : "MATH/ML-math/maximum-likelihood.html"
+
 ---
 
 # 최대우도추정
