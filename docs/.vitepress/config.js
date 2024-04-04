@@ -225,7 +225,7 @@ function getOGTag(pageData) {
     technicalAudience: "developer, DBA, Web Developer",
     proficiencyLevel: "beginner",
     author: "Jieun",
-    dependencies: "Python", // 추가 정보에 따라 수정 가능
+   // 추가 정보에 따라 수정 가능
   };
 
   const metaTags = Object.entries(metaData).map(([key, value]) => {
