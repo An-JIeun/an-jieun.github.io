@@ -151,7 +151,12 @@ function getJSONLD(pageData) {
     "@type" : "WebPage",
     "@id" : "https://an-jieun.github.io/contents${pageData.frontmatter.url}"
   },
-  "image" : "${pageData.frontmatter.img}",
+  "image" : {
+    "@type" : "ImageObject",
+    "url" : "${pageData.frontmatter.img}"
+    "width" : "800px",
+    "height" : "800px"
+  },
   "name":"${pageData.frontmatter.title}",
   "url" : "https://an-jieun.github.io/contents/${pageData.frontmatter.url}",
   "headline":"${pageData.frontmatter.description}",
