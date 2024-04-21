@@ -100,7 +100,7 @@ $$
 비용함수의 형태로 정의하면 다음과 같다. 이제부터는 이 비용함수를 $w$에 대해 미분하도록 하겠다.
 
 $$
--l(w) = \sum^N_{i=1} (t(i) z^{(i)}) + \sum^N_{i=1}log_e(1+e^{-z^{(i)}})
+-\ell(w) = \sum^N_{i=1} (t(i) z^{(i)}) + \sum^N_{i=1}log_e(1+e^{-z^{(i)}})
 $$
 
 이제 $w_i$에 대한 편미분을 통해 최적의 $W$ 벡터를 찾으면 된다. 그런데 여기서 문제가 있다.  $w$에 대해 미분해야 하는데, 식은 치환변수인 $z$로 작성되어 있다. 따라서 여기서는 연쇄법칙에 따른 매개변수 미분을 진행한다.
@@ -108,7 +108,7 @@ $$
 이때,  $x_i$의 차원수만큼 $w_i$가 존재할 것이고, $w_i$ 하나를 찾기위해선 N개의 데이터에 대해 연산해야 한다. 즉, $w_1... w_D$의 미분계수가 존재하고, 이는 미분계수 벡터의 형태로 나타낼 수 있다.
 
 $$
-\bigtriangledown W = [\frac{\delta}{\delta w_1}, \frac{\delta}{\delta w_1}, ... , \frac{\delta}{\delta w_D} ]^T 
+\bigtriangledown W = [\frac{\partial}{\partial w_1}, \frac{\partial}{\partial w_1}, ... , \frac{\partial}{\partial w_D} ]^T 
 $$
 
 이것을 이제 데이터 세트 하나씩 곱하여 미분하면 된다. 아마 벡터 연산으로 나타내면 아래와 같은 모양일 것이다. 모든 식에서 0이 나오도록 연립방정식을 풀면 된다.
@@ -116,10 +116,10 @@ $$
 우행렬의 열벡터 각각은 i번째의 x 벡터이다. 보통은 벡터연산으로 $z=W^TX_i$로 풀기에, 아래와 같이 행렬로 연산한다. 
 $$
 \begin{bmatrix}
-    \frac{\delta}{\delta w_1} &
-    \frac{\delta}{\delta w_2} &
+    \frac{\partial}{\partial w_1} &
+    \frac{\partial}{\partial w_2} &
     & ... & &
-    \frac{\delta}{\delta w_D}  
+    \frac{\partial}{\partial w_D}  
 \end{bmatrix}
 \begin{bmatrix} 
    t^{(1)}{w_1x_1}^{(1)}+log(1+e^{-{w_1x_1}^{(1)}}) & ... & t^{(N)}{w_1x_1}^{(N)}+log(1+e^{-{w_1x_1}^{(N)}}) \\
@@ -140,7 +140,7 @@ $$
 \end{bmatrix}
 $$
 
-여기서 $\frac{\delta}{\delta w_1} [t^{(1)}{w_1x_1}^{(1)}+log(1+e^{-{w_1x_1}^{(1)}})]$의 식만 계산 해보자. 
+여기서 $\frac{\partial}{\partial w_1} [t^{(1)}{w_1x_1}^{(1)}+log(1+e^{-{w_1x_1}^{(1)}})]$의 식만 계산 해보자. 
 
 
 :::info 💡로그의 미분
