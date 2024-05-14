@@ -66,7 +66,8 @@ export default {
           collapsed : true,
           items:[
             {text : "최대우도법", link: "/contents/MATH/ML-math/maximum-likelihood.html"},
-            {text : "가우시안 혼합 모델 (GMM)", link: "/contents/MATH/ML-math/gmm.html"}
+            {text : "가우시안 혼합 모델 (GMM)", link: "/contents/MATH/ML-math/gmm.html"},
+            {text : "LDA (Latent Dirichlet Allocation)", link: "/contents/MATH/ML-math/lda.html"}
           ]
         },
           { text: '선형대수 - 기초', 
