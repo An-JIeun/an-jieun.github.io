@@ -1,17 +1,16 @@
 ---
-title : LDA (Latent Dirichlet Allocation)
+title : LDA (Linear Discriminate Analysis)
 description: LDA 알아보기
-keywords : '"머신러닝, LDA, 잠재디리클레할당"'
+keywords : '"머신러닝, LDA, 선형판별분석"'
 url : "MATH/ML-math/lda.html"
-img : "https://an-jieun.github.io/static/img/gmm-thumb.png"
+img : "https://an-jieun.github.io/static/img/lda-thumb.png"
 ---
-# LDA (Linear Distribution Analysis) - 잠재디리클레 할당
+# LDA (Linear Discriminate Analysis) - 선형판별분석
 
 LDA는 클래스가 레이블링된 데이터 세트에 대해, 데이터 세트를 구분하는 영역을 가르는 방법에 대한 것이다. 이 점은 Neural Network과도 유사한데, 차이점이 있다면 Neural Network는 결정평면에 대한 최적 파라미터를 Gradient Descent(경사하강)을 통해 에러를 업데이팅 시키며 최적값을 찾아나간다는 것이고, LDA는 결정 평면(또는 직선)을 찾는게 아닌, 최적의 **사영 행렬(projection matrix)** 을 찾는 것이 목적이다. 그러니까, LDA에서는 데이터가 클래스에 따라 잘 쪼개지도록 하는 원점을 지나는 방향 벡터를 찾는 것이 목적이다. LDA에서는 원점을 지나는 방향벡터를 구하는 것이므로 bias가 없다.
 
-Neural Network 과 LDA에서 구하게 되는 것은 결국엔 공통적으로 원본 데이터세트 X를 변환하는 벡터인데, Neural Network 방식은 Thresh Holding을 통한 오차제곱합 갱신을 통해 조금씩 가중치 벡터를 조정하는 방법인 것이고, LDA는 엄밀히 따지면 결정 평면을 찾는 것이라기보단, 최적의 사영공간을 찾는 것이다. 아무튼간에 결과론적으로 보면 데이터에 곱해지는 어떤 가중치 벡터를 통해 클래스를 구분 지을 수 있는 공간을 찾는다는 점에선 비슷하다고도 할 수 있다.
+보통의 Projection Matrix와 다른 점은, 보통의 Projection Matrix는 정보 손실을 최소화하며 차원을 축소하는 것이 목표이므로, 데이터의 분산이 최대화되는 사영 벡터를 찾는다. 하지만, LDA에서는 두 클래스의 구별성을 최대한으로 높여야 하므로, 두 집단 내부의 분산은 최소가 되면서, 집단간의 거리는 최대가 되는 직선 상에 사영되도록 하는 사영 벡터를 찾는 것이 목표이다.
 
-LDA는 곧 PCA와 연관된다. LDA에서의 사영벡터가 차원 축소 방법과 비슷하기 때문이다.(확인필요)
 
 ## 목적함수 정의
 
@@ -25,7 +24,7 @@ LDA는 곧 PCA와 연관된다. LDA에서의 사영벡터가 차원 축소 방�
 
 수식적으로 나타내면 다음과 같다. 클래스 $C = [C_1, C_2]$ 일 때, 두 클래스 각각의 평균 집합은 $[\mu_1, \mu_2]$이고, 두 집단 각각의 분산은 $[s_1, s_2]$라고 하자.
 
-간단하게 나타내면 아래와 같다. 사영벡터 $\mathbb v$는 기저벡터이므로 $N_2 = 1$이다. 따라서 $||\mathbb v|| = 1$ 을 가정한다.
+간단하게 나타내면 아래와 같다. 사영벡터 $\mathbb v$는 기저벡터이므로 유닛벡터이다. 따라서 $||\mathbb v|| = 1$ 을 가정한다.
 
 $$
 Max_{||\mathbb v|| = 1} ( \frac{(\mu_1-\mu_2)^2}{s_1^2 + s_2^2})
@@ -81,7 +80,7 @@ $$
 Max(\frac{\mathbb v^T \mathbb S_b \mathbb v}{\mathbb v^T \mathbb S_w \mathbb v})
 $$
 
-### 미분
+### 미분 (TBD)
 
 $Max(\frac{\mathbb v^T \mathbb S_b \mathbb v}{\mathbb v^T \mathbb S_w \mathbb v})$는 $\mathbb v$로 해당 목적함수를 미분하였을 때 0이 나오는 벡터를 대입함으로써 구할 수 있다. 
 
@@ -90,3 +89,6 @@ $$
 \left\{ \frac{f(x)}{g(x)} \right\}^` = \frac{f(x)g^`(x) - f^`(x)g(x)}{ \left\{ g(x)\right\}^2}
 $$
 :::
+
+
+수식의 의미 : Sw역행렬은 두 식의 분산이 최소가 되는 방향으로 방향을 틀어준다. 그리고 기본적으로는 m1 - m2 벡터의 방향을 향하도록 한다

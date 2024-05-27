@@ -3,7 +3,7 @@ title : 최대우도추정
 description: 가우시안 확률 밀도 함수 매개변수 추정법
 keywords : '"머신러닝, 확률변수, 가우시안, 최대우도"'
 url : "MATH/ML-math/maximum-likelihood.html"
-img : "https://an-jieun.github.io/static/img/logis.png"
+img : "https://an-jieun.github.io/static/img/em-thumb.png"
 ---
 
 # 최대우도추정

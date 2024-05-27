@@ -67,7 +67,8 @@ export default {
           items:[
             {text : "최대우도법", link: "/contents/MATH/ML-math/maximum-likelihood.html"},
             {text : "가우시안 혼합 모델 (GMM)", link: "/contents/MATH/ML-math/gmm.html"},
-            {text : "LDA (Latent Dirichlet Allocation)", link: "/contents/MATH/ML-math/lda.html"}
+            {text : "LDA (Linear Discriminate Analysis)", link: "/contents/MATH/ML-math/lda.html"},
+            {text : "PCA (Principle Component Analysis)", link: "/contents/MATH/ML-math/pca.html"}
           ]
         },
           { text: '선형대수 - 기초', 
@@ -85,9 +86,8 @@ export default {
           items : [
             {text : "1. 고유값과 고유벡터", link: "/contents/MATH/linear-algebra-application/intermediate-chap-1.html"},
             {text : "2. 특이값과 특이값분해", link: "/contents/MATH/linear-algebra-application/intermediate-chap-2.html"},
-            {text : "3. PCA (TBD)", link: "/contents/MATH/linear-algebra-application/intermediate-chap-3.html"},
-            {text : "4. 선형회귀와 다중회귀", link: "/contents/MATH/linear-algebra-application/intermediate-chap-4.html"},
-            {text : "5. 시그모이드와 로지스틱", link: "/contents/MATH/linear-algebra-application/intermediate-chap-5.html"}
+            {text : "3. 선형회귀와 다중회귀", link: "/contents/MATH/linear-algebra-application/intermediate-chap-4.html"},
+            {text : "4. 시그모이드와 로지스틱", link: "/contents/MATH/linear-algebra-application/intermediate-chap-5.html"}
           ]},
           { text: 'Automatic Differentiate', link: '/contents/MATH/automatic-differentiate.html' }]
         }   
