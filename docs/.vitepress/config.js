@@ -129,10 +129,11 @@ export default {
         ]
       },
       {
-        text: 'Vitepress',
+        text: 'General Works',
         collapsed : false,
         items: [
-          { text: 'Github Page로 Vitepress 디플로이', link: "/contents/VITEPRESS/git-deploy.html"}
+          { text: 'Github Page로 Vitepress 디플로이', link: "/contents/VITEPRESS/git-deploy.html"},
+          { text: "Zotero에 Koofr 연동하기" , link:"/contents/VITEPRESS/zotero.html"}
         ]
       },
     ],

@@ -25,8 +25,8 @@ features:
   - title: Knowledge Graph
     details: 온톨로지와 지식그래프
     link: /contents/KG/kg-main
-  - title : Vitepress
-    details : Vitepress 잘 쓰는 법
+  - title : General Works
+    details : 총류(000)
     link : /contents/VITEPRESS/vitepress-main
 ---
 
