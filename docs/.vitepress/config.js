@@ -109,7 +109,15 @@ export default {
             items : [
               {text: "LangChain이란?", link: "/contents/LLM/langchain/README.html"},
             ]
-            }
+          },
+          {
+            text : "코드프레소 러너톤 도전기",
+            collapsed : true,
+            items : [
+              {text : "week 1. 랭체인 생태계 입문", link: "/contents/LLM/codepresso/w1.html"},
+            ]
+          }
+          
         ]
       },
       {
