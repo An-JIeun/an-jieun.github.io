@@ -114,7 +114,8 @@ export default {
             text : "코드프레소 러너톤 도전기",
             collapsed : true,
             items : [
-              {text : "week 1. 랭체인 생태계 입문", link: "/contents/LLM/codepresso/w1.html"},
+              {text : "week 1. 랭체인 기본기 익히기", link: "/contents/LLM/codepresso/w1.html"},
+              {text : "week 2. 러너블(Runnable)과 프롬프트", link: "/contents/LLM/codepresso/w2.html"},
             ]
           }
           
@@ -133,6 +134,7 @@ export default {
             collapsed : true,
             items:[
               {text : "1. 지식그래프란?", link: "/contents/KG/knowledge-graph/kg-chap-1.html"},
+
             ] }
         ]
       },
