@@ -110,6 +110,7 @@ export default {
             collapsed: true,
             items : [
               {text: "LangChain이란?", link: "/contents/LLM/langchain/README.html"},
+              {text: "지식그래프에 자연어 질의하기 - GraphSparqlQAChain", link:"/contents/LLM/langchain/sparqlqachat.html"},
             ]
           },
           {
