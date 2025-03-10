@@ -13,7 +13,9 @@ export default {
     ]);
     getOGTag(pageData);
   },
-
+  sitemap:{
+    hostname: "https://an-jieun.github.io/",
+  },
   title: "전자두뇌만들기",
   lastUpdated: true,
   outline:[2,3],
