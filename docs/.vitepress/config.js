@@ -169,7 +169,7 @@ function getJSONLD(pageData) {
   },
   "image" : {
     "@type" : "ImageObject",
-    "url" : "${pageData.frontmatter.img}"
+    "url" : "${pageData.frontmatter.img}",
     "width" : "800px",
     "height" : "800px"
   },
