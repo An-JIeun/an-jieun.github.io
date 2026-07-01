@@ -217,18 +217,24 @@
   ],
   "awards": [
     {
-      "title": "수상 · 장학 (수정하세요)",
-      "org": "주최 · 기관",
-      "date": "YYYY.MM",
-      "description": "수상/장학 내역을 적으세요. portfolio.json 의 awards 배열을 편집하거나, 실제 내역을 알려주시면 채워 드립니다. (설명은 선택)"
+      "title": "제13회 산업통상부 공공데이터 활용 아이디어 공모전 (대상)",
+      "org": "산업통상부",
+      "date": "2025",
+      "description": "HIKE Lab. 으로 참가 / 아이디어 기획 부문 대상"
+    },
+    {
+      "title": "데이터 활용 아이디어&시각화 경진대회",
+      "org": "한국데이터산업진흥원",
+      "date": "2021",
+      "description": "시각화 스토리텔링 부문 우수상"
     }
   ],
   "certifications": [
     {
-      "name": "자격증명 (수정하세요)",
-      "org": "발급 기관",
-      "date": "YYYY.MM",
-      "id": ""
+      "name": "SQLD(SQL 개발자)",
+      "org": "한국데이터산업진흥원",
+      "date": "2026.03.27",
+      "id": "SQLD-060014854"
     }
   ],
   "experience": [
