@@ -1,5 +1,16 @@
 <script setup>
+import { ref } from 'vue'
 import data from '../../data/portfolio.json'
+
+const openProjects = ref([])
+function toggleProject(i) {
+  const pos = openProjects.value.indexOf(i)
+  if (pos === -1) openProjects.value.push(i)
+  else openProjects.value.splice(pos, 1)
+}
+function isProjectOpen(i) {
+  return openProjects.value.includes(i)
+}
 
 function printPage() {
   if (typeof window !== 'undefined') window.print()
@@ -65,14 +76,26 @@ const icons = {
     <section v-if="data.projects && data.projects.length" class="pf-section">
       <h2 class="pf-h2">Projects</h2>
       <div class="pf-projlist">
-        <div v-for="p in data.projects" :key="p.name" class="pf-projrow">
-          <span class="pf-projmain" :title="p.description || p.name">
-            <span class="pf-projname">{{ p.name }}</span>
-            <span v-if="p.period" class="pf-projmeta"> · {{ p.period }}</span>
-            <span v-if="p.role" class="pf-projmeta"> · {{ p.role }}</span>
-          </span>
-          <a v-for="ln in (p.links || [])" :key="ln.url" class="pf-projlink" :href="ln.url"
-             :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
+        <div v-for="(p, i) in data.projects" :key="p.name" class="pf-projitem">
+          <button type="button" class="pf-projrow" :class="{ 'is-open': isProjectOpen(i) }"
+                  :aria-expanded="isProjectOpen(i)" @click="toggleProject(i)">
+            <span class="pf-projcaret" aria-hidden="true">▸</span>
+            <span class="pf-projmain">
+              <span class="pf-projname">{{ p.name }}</span>
+              <span v-if="p.period" class="pf-projmeta"> · {{ p.period }}</span>
+              <span v-if="p.role" class="pf-projmeta"> · {{ p.role }}</span>
+            </span>
+          </button>
+          <div v-show="isProjectOpen(i)" class="pf-projdetail">
+            <p v-if="p.description" class="pf-desc">{{ p.description }}</p>
+            <div v-if="p.tech && p.tech.length" class="pf-tags">
+              <span v-for="t in p.tech" :key="t" class="pf-tag pf-tag-sm">{{ t }}</span>
+            </div>
+            <div v-if="p.links && p.links.length" class="pf-projlinks">
+              <a v-for="ln in p.links" :key="ln.url" :href="ln.url"
+                 :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -209,17 +232,24 @@ const icons = {
 .pf-period { font-size: .8rem; color: var(--vp-c-text-3); white-space: nowrap; }
 .pf-desc { font-size: .92rem; line-height: 1.65; color: var(--vp-c-text-2); margin: 6px 0; }
 
-/* 프로젝트 — 한 줄 스니펫 리스트 */
+/* 프로젝트 — 한 줄 스니펫 + 클릭 시 아래로 설명 펼침 */
 .pf-projlist { display: flex; flex-direction: column; }
+.pf-projitem { border-bottom: 1px solid var(--vp-c-divider); }
 .pf-projrow {
-  display: flex; align-items: baseline; gap: 12px;
-  padding: 9px 2px; border-bottom: 1px solid var(--vp-c-divider);
+  display: flex; align-items: baseline; gap: 10px; width: 100%;
+  padding: 10px 2px; margin: 0;
+  background: none; border: none; cursor: pointer;
+  text-align: left; color: inherit; font: inherit;
 }
 .pf-projrow:hover { background: var(--vp-c-bg-soft); }
+.pf-projcaret { flex-shrink: 0; font-size: .75rem; color: var(--vp-c-text-3); transition: transform .18s ease; }
+.pf-projrow.is-open .pf-projcaret { transform: rotate(90deg); }
 .pf-projmain { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pf-projname { font-weight: 700; font-size: .96rem; color: var(--vp-c-text-1); }
 .pf-projmeta { font-size: .84rem; color: var(--vp-c-text-3); }
-.pf-projlink { flex-shrink: 0; font-size: .8rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; white-space: nowrap; }
+.pf-projdetail { padding: 2px 2px 16px 24px; }
+.pf-projlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+.pf-projlinks a { font-size: .85rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; }
 
 /* 타임라인 */
 .pf-timeline { display: flex; flex-direction: column; gap: 16px; }
@@ -236,8 +266,10 @@ const icons = {
   .portfolio { max-width: 100%; padding: 0; color: #000; }
   .pf-tag, .pf-tag-sm { background: transparent !important; }
   .pf-section { break-inside: avoid; }
-  .pf-projrow { break-inside: avoid; }
+  .pf-projitem { break-inside: avoid; }
   .pf-projmain { white-space: normal; overflow: visible; } /* PDF 에선 프로젝트명·역할 전체 표시 */
+  .pf-projcaret { display: none; }
+  .pf-projdetail { display: block !important; } /* PDF 에선 모든 프로젝트 설명 펼쳐서 표시 */
   .pf-avatar { border-color: #888; }
   a { color: #000 !important; text-decoration: none; }
 }
