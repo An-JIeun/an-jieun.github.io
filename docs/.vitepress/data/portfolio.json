@@ -221,17 +221,22 @@
   ],
   "experience": [
     {
-      "org": "소속/회사 (수정하세요)",
-      "role": "직무",
-      "period": "YYYY.MM — YYYY.MM",
-      "description": "담당 업무와 성과를 한두 줄로 적으세요."
+      "role": "Researcher",
+      "org": "HIKE Lab.",
+      "period": "2023-2026",
+      "description": ""
     }
   ],
   "education": [
     {
-      "org": "학교명 (수정하세요)",
-      "degree": "문헌정보학(LIS) · 소프트웨어(SW)",
-      "period": "YYYY — YYYY"
+      "org": "중앙대학교",
+      "degree": "문헌정보학과, 소프트웨어학부(복수전공)/학사",
+      "period": "2020-2024"
+    },
+    {
+      "org": "중앙대학교",
+      "degree": "문헌정보학과/석사",
+      "period": "2024-2026"
     }
   ]
 }
