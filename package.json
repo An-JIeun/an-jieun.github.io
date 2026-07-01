@@ -2,9 +2,12 @@
   "scripts": {
     "docs:dev": "vitepress dev docs",
     "docs:build": "vitepress build docs",
-    "docs:preview": "vitepress preview docs"
+    "docs:preview": "vitepress preview docs",
+    "pdf": "node scripts/generate-pdf.mjs",
+    "build": "npm run docs:build && npm run pdf"
   },
   "devDependencies": {
+    "puppeteer": "^25.2.1",
     "vitepress": "^1.0.0-rc.45"
   },
   "dependencies": {

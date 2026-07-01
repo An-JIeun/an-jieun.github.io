@@ -1,0 +1,21 @@
+# dependencies
+node_modules/
+
+# VitePress 빌드 산출물 / 캐시 (배포는 CI의 npm ci + build 로 생성)
+docs/.vitepress/dist/
+docs/.vitepress/cache/
+docs/.vitepress/.temp/
+
+# 로컬 PDF 산출물
+docs/.vitepress/dist/portfolio.pdf
+
+# 로그 / 환경
+*.log
+.env
+.env.*
+
+# macOS / IDE
+.DS_Store
+**/.DS_Store
+.vscode/
+.idea/

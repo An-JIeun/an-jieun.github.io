@@ -51,14 +51,17 @@ export default {
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
-      { text: 'Home', link: '/' }
+      { text: 'Portfolio', link: '/' },
+      { text: 'Blog', link: '/blog' },
+      { text: 'Resume (PDF)', link: '/portfolio.pdf', target: '_blank' }
     ],
     footer: {
       // message: 'Docs are released under the MIT License.',
       copyright: "Copyright © 2024 전자두뇌만들기.",
     },
     logo:"/static/icon/logo.svg",
-    sidebar: [
+    sidebar: {
+      '/contents/': [
       {
         text: 'MATH',
         collapsed : false,
@@ -149,7 +152,8 @@ export default {
           { text: "Zotero에 Koofr 연동하기" , link:"/contents/VITEPRESS/zotero.html"}
         ]
       },
-    ],
+    ]
+    },
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/An-JIeun/an-jieun.github.io' },

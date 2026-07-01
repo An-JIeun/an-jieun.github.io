@@ -1,0 +1,69 @@
+{
+  "name": "안지은 (Jieun Ahn)",
+  "title": "AI · 데이터 엔지니어링",
+  "tagline": "문헌정보학(LIS)과 소프트웨어(SW)를 함께 공부하며, LLM · 지식그래프 · 데이터 품질을 다룹니다.",
+  "location": "Seoul, Korea",
+  "email": "aje20010827@gmail.com",
+  "avatar": "/static/img/profile.png",
+  "resumePdf": "/portfolio.pdf",
+  "links": [
+    { "label": "GitHub", "url": "https://github.com/An-JIeun", "icon": "github" },
+    { "label": "Blog", "url": "/blog", "icon": "blog" },
+    { "label": "X (Twitter)", "url": "https://twitter.com/lempicka_in_", "icon": "x" },
+    { "label": "Email", "url": "mailto:aje20010827@gmail.com", "icon": "mail" }
+  ],
+  "about": "인공지능 기술을 깊이 이해하고 정리하는 것을 좋아합니다. 수학 기초부터 LLM(RAG·파인튜닝), 지식그래프(온톨로지·SPARQL), 데이터 품질 평가까지 폭넓게 학습하며 기술 블로그 '전자두뇌만들기'를 운영합니다. (이 소개 문구는 자유롭게 수정하세요.)",
+  "skills": [
+    { "category": "LLM / NLP", "items": ["LangChain", "RAG", "Fine-tuning", "Prompt Engineering"] },
+    { "category": "Knowledge Graph", "items": ["Ontology (Protégé)", "Neo4j", "SPARQL", "RDF/OWL"] },
+    { "category": "ML / Math", "items": ["선형대수", "확률·통계", "GMM/PCA/LDA", "Auto-differentiation"] },
+    { "category": "Data", "items": ["Python (pandas)", "데이터 품질 평가 (AIRD)", "데이터 정제"] },
+    { "category": "Web / Tooling", "items": ["Git/GitHub", "VitePress", "Vue"] }
+  ],
+  "projects": [
+    {
+      "name": "전자두뇌만들기 — AI 기술 블로그",
+      "period": "2024 — 현재",
+      "role": "개인 프로젝트",
+      "description": "LLM·머신러닝 수학·지식그래프를 정리한 기술 블로그. VitePress + GitHub Pages로 구축·배포하고 KaTeX/MathJax 수식, giscus 댓글, 로컬 검색을 적용했습니다.",
+      "tech": ["VitePress", "Vue", "GitHub Actions"],
+      "links": [
+        { "label": "사이트", "url": "/blog" },
+        { "label": "소스", "url": "https://github.com/An-JIeun/an-jieun.github.io" }
+      ]
+    },
+    {
+      "name": "데이터 품질 검사 도구 (AIRD)",
+      "period": "2025",
+      "role": "역할을 입력하세요",
+      "description": "CSV/XLSX 데이터의 품질을 7개 차원·20개 지표로 진단하고 Q-Tier 등급·정제 가이드를 산출하는 도구. (설명을 프로젝트에 맞게 수정하세요.)",
+      "tech": ["Python", "pandas"],
+      "links": [
+        { "label": "GitHub", "url": "https://github.com/An-JIeun" }
+      ]
+    },
+    {
+      "name": "프로젝트 제목 (수정하세요)",
+      "period": "YYYY.MM — YYYY.MM",
+      "role": "역할",
+      "description": "이 프로젝트 카드를 복사해 새 프로젝트를 추가하거나, portfolio.json 의 projects 배열을 편집하세요.",
+      "tech": ["기술1", "기술2"],
+      "links": []
+    }
+  ],
+  "experience": [
+    {
+      "org": "소속/회사 (수정하세요)",
+      "role": "직무",
+      "period": "YYYY.MM — YYYY.MM",
+      "description": "담당 업무와 성과를 한두 줄로 적으세요."
+    }
+  ],
+  "education": [
+    {
+      "org": "학교명 (수정하세요)",
+      "degree": "문헌정보학(LIS) · 소프트웨어(SW)",
+      "period": "YYYY — YYYY"
+    }
+  ]
+}

@@ -45,6 +45,11 @@ jobs:
         run: npm ci # or pnpm install / yarn install / bun install
       - name: Build with VitePress
         run: npm run docs:build # or pnpm docs:build / yarn docs:build / bun run docs:build
+      - name: Generate portfolio PDF
+        # 포트폴리오 홈(/)을 portfolio.pdf 로 렌더해 dist 에 포함(다운로드 링크 /portfolio.pdf).
+        # 실패해도 사이트 배포는 계속되도록 continue-on-error 로 둔다.
+        continue-on-error: true
+        run: npm run pdf
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

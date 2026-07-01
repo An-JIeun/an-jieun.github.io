@@ -4,6 +4,7 @@ import DefaultTheme from 'vitepress/theme'
 import './style.css'
 import giscusTalk from 'vitepress-plugin-comment-with-giscus';
 import {useData, useRoute} from 'vitepress';
+import Portfolio from './components/Portfolio.vue';
 
 /** @type {import('vitepress').Theme} */
 export default {
@@ -43,6 +44,6 @@ export default {
     })
   },
   enhanceApp({ app, router, siteData }) {
-    // ...
+    app.component('Portfolio', Portfolio);
   }
 }
