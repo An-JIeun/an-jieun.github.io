@@ -13,6 +13,11 @@
       "icon": "github"
     },
     {
+      "label": "LinkedIn",
+      "url": "https://www.linkedin.com/in/jieun-an-752667214/",
+      "icon": "linkedin"
+    },
+    {
       "label": "Blog",
       "url": "/blog",
       "icon": "blog"
@@ -41,15 +46,6 @@
         "Neo4j",
         "SPARQL",
         "RDF/OWL"
-      ]
-    },
-    {
-      "category": "ML / Math",
-      "items": [
-        "선형대수",
-        "확률·통계",
-        "GMM/PCA/LDA",
-        "Auto-differentiation"
       ]
     },
     {
@@ -217,6 +213,22 @@
         "Vite"
       ],
       "links": []
+    }
+  ],
+  "awards": [
+    {
+      "title": "수상 · 장학 (수정하세요)",
+      "org": "주최 · 기관",
+      "date": "YYYY.MM",
+      "description": "수상/장학 내역을 적으세요. portfolio.json 의 awards 배열을 편집하거나, 실제 내역을 알려주시면 채워 드립니다. (설명은 선택)"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "자격증명 (수정하세요)",
+      "org": "발급 기관",
+      "date": "YYYY.MM",
+      "id": ""
     }
   ],
   "experience": [
