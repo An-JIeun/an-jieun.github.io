@@ -16,7 +16,7 @@ export default {
   sitemap:{
     hostname: "https://an-jieun.github.io",
   },
-  title: "전자두뇌만들기",
+  title: "Jieun's portfolio",
   lastUpdated: true,
   outline:[2,3],
   // markdown-it-footnote
@@ -57,7 +57,7 @@ export default {
     ],
     footer: {
       // message: 'Docs are released under the MIT License.',
-      copyright: "Copyright © 2024 전자두뇌만들기.",
+      copyright: "Copyright © 2026 Jieun Ahn.",
     },
     logo:"/static/icon/logo.svg",
     sidebar: {
@@ -156,9 +156,7 @@ export default {
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/An-JIeun/an-jieun.github.io' },
-      {icon : 'x', link: "https://twitter.com/lempicka_in_"},
-  
+      { icon: 'github', link: 'https://github.com/An-JIeun/an-jieun.github.io' }
     ]
   }
 }

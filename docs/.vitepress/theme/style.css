@@ -50,10 +50,10 @@
   --vp-c-default-3: var(--vp-c-gray-3);
   --vp-c-default-soft: var(--vp-c-gray-soft);
 
-  --vp-c-brand-1: #5dc6de;
-  --vp-c-brand-2: #F2E6A7;
-  --vp-c-brand-3: #41D9A1;
-  --vp-c-brand-soft: var(--vp-c-indigo-soft);
+  --vp-c-brand-1: #111827;
+  --vp-c-brand-2: #374151;
+  --vp-c-brand-3: #111827;
+  --vp-c-brand-soft: rgba(17, 24, 39, 0.08);
 
   --vp-c-tip-1: var(--vp-c-brand-1);
   --vp-c-tip-2: var(--vp-c-brand-2);
@@ -72,6 +72,14 @@
   --vp-font-family-base: "Inter", "Spoqa Han Sans Neo", "Apple Color Emoji",
   "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
 
+}
+
+/* 다크 모드: 그레이를 밝게 조정해 대비 확보 (블랙/그레이 모노톤) */
+.dark {
+  --vp-c-brand-1: #e5e7eb;
+  --vp-c-brand-2: #f3f4f6;
+  --vp-c-brand-3: #4b5563;
+  --vp-c-brand-soft: rgba(229, 231, 235, 0.12);
 }
 
 /**

@@ -1,6 +1,7 @@
 ---
 layout: page
-title: Portfolio
+title: "Jieun's portfolio"
+titleTemplate: false
 description: Jieun Ahn — Portfolio
 aside: false
 outline: false

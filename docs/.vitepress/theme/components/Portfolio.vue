@@ -7,7 +7,6 @@ function printPage() {
 
 const icons = {
   github: 'M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.3-1.7-1.3-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.75.4-1.27.73-1.56-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.4-5.26 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z',
-  x: 'M18.9 2H22l-7.6 8.7L23 22h-6.9l-5.4-7-6.2 7H1.4l8.1-9.3L1 2h7l4.9 6.5L18.9 2Zm-2.4 18h1.9L7.6 4H5.6l10.9 16Z',
   mail: 'M2 4h20v16H2V4Zm2 2v.4l8 5 8-5V6H4Zm16 2.6-8 5-8-5V18h16V8.6Z',
   blog: 'M4 3h16v18l-8-4-8 4V3Zm2 2v11.8l6-3 6 3V5H6Z'
 }
@@ -111,9 +110,6 @@ const icons = {
       </div>
     </section>
 
-    <footer class="pf-footer no-print">
-      <span>이 페이지는 <code>docs/.vitepress/data/portfolio.json</code> 을 편집해 갱신합니다.</span>
-    </footer>
   </div>
 </template>
 
@@ -166,8 +162,8 @@ const icons = {
   color: var(--vp-c-text-1); text-decoration: none;
 }
 .pf-btn:hover { border-color: var(--vp-c-brand-1); }
-.pf-btn-brand { background: var(--vp-c-brand-1); border-color: var(--vp-c-brand-1); color: #fff; }
-.pf-btn-brand:hover { background: var(--vp-c-brand-2); color: #fff; }
+.pf-btn-brand { background: var(--vp-c-brand-3); border-color: var(--vp-c-brand-3); color: #fff; }
+.pf-btn-brand:hover { background: var(--vp-c-brand-3); border-color: var(--vp-c-brand-3); color: #fff; opacity: .88; }
 
 /* 섹션 */
 .pf-section { margin-top: 36px; }
@@ -205,7 +201,6 @@ const icons = {
 /* 타임라인 */
 .pf-timeline { display: flex; flex-direction: column; gap: 16px; }
 .pf-tl-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px; }
-.pf-footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid var(--vp-c-divider); font-size: .8rem; color: var(--vp-c-text-3); }
 
 @media (max-width: 640px) {
   .pf-header { flex-direction: column; text-align: center; }

@@ -9,7 +9,6 @@
   "links": [
     { "label": "GitHub", "url": "https://github.com/An-JIeun", "icon": "github" },
     { "label": "Blog", "url": "/blog", "icon": "blog" },
-    { "label": "X (Twitter)", "url": "https://twitter.com/lempicka_in_", "icon": "x" },
     { "label": "Email", "url": "mailto:aje20010827@gmail.com", "icon": "mail" }
   ],
   "about": "인공지능 기술을 깊이 이해하고 정리하는 것을 좋아합니다. 수학 기초부터 LLM(RAG·파인튜닝), 지식그래프(온톨로지·SPARQL), 데이터 품질 평가까지 폭넓게 학습하며 기술 블로그 '전자두뇌만들기'를 운영합니다. (이 소개 문구는 자유롭게 수정하세요.)",
@@ -21,17 +20,6 @@
     { "category": "Web / Tooling", "items": ["Git/GitHub", "VitePress", "Vue"] }
   ],
   "projects": [
-    {
-      "name": "전자두뇌만들기 — AI 기술 블로그",
-      "period": "2024 — 현재",
-      "role": "개인 프로젝트",
-      "description": "LLM·머신러닝 수학·지식그래프를 정리한 기술 블로그. VitePress + GitHub Pages로 구축·배포하고 KaTeX/MathJax 수식, giscus 댓글, 로컬 검색을 적용했습니다.",
-      "tech": ["VitePress", "Vue", "GitHub Actions"],
-      "links": [
-        { "label": "사이트", "url": "/blog" },
-        { "label": "소스", "url": "https://github.com/An-JIeun/an-jieun.github.io" }
-      ]
-    },
     {
       "name": "데이터 품질 검사 도구 (AIRD)",
       "period": "2025",
