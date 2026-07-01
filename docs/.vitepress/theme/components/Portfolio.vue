@@ -1,6 +1,23 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import data from '../../data/portfolio.json'
+
+// 프로젝트를 category(논문 · 연구실 프로젝트 · 개인 프로젝트) 별로 그룹핑
+const PROJECT_ORDER = ['논문', '연구실 프로젝트', '개인 프로젝트']
+const groupedProjects = computed(() => {
+  const groups = {}
+  ;(data.projects || []).forEach((p, idx) => {
+    const cat = p.category || '기타'
+    if (!groups[cat]) groups[cat] = []
+    groups[cat].push({ project: p, idx })
+  })
+  const ordered = []
+  PROJECT_ORDER.forEach((c) => {
+    if (groups[c]) { ordered.push({ cat: c, items: groups[c] }); delete groups[c] }
+  })
+  Object.keys(groups).forEach((c) => ordered.push({ cat: c, items: groups[c] }))
+  return ordered
+})
 
 const openProjects = ref([])
 function toggleProject(i) {
@@ -75,25 +92,28 @@ const icons = {
     <!-- ── Projects (한 줄 스니펫) ── -->
     <section v-if="data.projects && data.projects.length" class="pf-section">
       <h2 class="pf-h2">Projects</h2>
-      <div class="pf-projlist">
-        <div v-for="(p, i) in data.projects" :key="p.name" class="pf-projitem">
-          <button type="button" class="pf-projrow" :class="{ 'is-open': isProjectOpen(i) }"
-                  :aria-expanded="isProjectOpen(i)" @click="toggleProject(i)">
-            <span class="pf-projcaret" aria-hidden="true">▸</span>
-            <span class="pf-projmain">
-              <span class="pf-projname">{{ p.name }}</span>
-              <span v-if="p.period" class="pf-projmeta"> · {{ p.period }}</span>
-              <span v-if="p.role" class="pf-projmeta"> · {{ p.role }}</span>
-            </span>
-          </button>
-          <div v-show="isProjectOpen(i)" class="pf-projdetail">
-            <p v-if="p.description" class="pf-desc">{{ p.description }}</p>
-            <div v-if="p.tech && p.tech.length" class="pf-tags">
-              <span v-for="t in p.tech" :key="t" class="pf-tag pf-tag-sm">{{ t }}</span>
-            </div>
-            <div v-if="p.links && p.links.length" class="pf-projlinks">
-              <a v-for="ln in p.links" :key="ln.url" :href="ln.url"
-                 :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
+      <div v-for="g in groupedProjects" :key="g.cat" class="pf-projgroup">
+        <h3 class="pf-projgrouptitle">{{ g.cat }}</h3>
+        <div class="pf-projlist">
+          <div v-for="it in g.items" :key="it.project.name" class="pf-projitem">
+            <button type="button" class="pf-projrow" :class="{ 'is-open': isProjectOpen(it.idx) }"
+                    :aria-expanded="isProjectOpen(it.idx)" @click="toggleProject(it.idx)">
+              <span class="pf-projcaret" aria-hidden="true">▸</span>
+              <span class="pf-projmain">
+                <span class="pf-projname">{{ it.project.name }}</span>
+                <span v-if="it.project.period" class="pf-projmeta"> · {{ it.project.period }}</span>
+                <span v-if="it.project.role" class="pf-projmeta"> · {{ it.project.role }}</span>
+              </span>
+            </button>
+            <div v-show="isProjectOpen(it.idx)" class="pf-projdetail">
+              <p v-if="it.project.description" class="pf-desc">{{ it.project.description }}</p>
+              <div v-if="it.project.tech && it.project.tech.length" class="pf-tags">
+                <span v-for="t in it.project.tech" :key="t" class="pf-tag pf-tag-sm">{{ t }}</span>
+              </div>
+              <div v-if="it.project.links && it.project.links.length" class="pf-projlinks">
+                <a v-for="ln in it.project.links" :key="ln.url" :href="ln.url"
+                   :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
+              </div>
             </div>
           </div>
         </div>
@@ -232,7 +252,14 @@ const icons = {
 .pf-period { font-size: .8rem; color: var(--vp-c-text-3); white-space: nowrap; }
 .pf-desc { font-size: .92rem; line-height: 1.65; color: var(--vp-c-text-2); margin: 6px 0; }
 
-/* 프로젝트 — 한 줄 스니펫 + 클릭 시 아래로 설명 펼침 */
+/* 프로젝트 — 카테고리 그룹(논문·연구실·개인) + 한 줄 스니펫 + 클릭 시 펼침 */
+.pf-projgroup { margin-top: 18px; }
+.pf-projgroup:first-of-type { margin-top: 0; }
+.pf-projgrouptitle {
+  font-size: .82rem; font-weight: 700; letter-spacing: .03em;
+  color: var(--vp-c-brand-1); margin: 0 0 4px;
+  text-transform: uppercase;
+}
 .pf-projlist { display: flex; flex-direction: column; }
 .pf-projitem { border-bottom: 1px solid var(--vp-c-divider); }
 .pf-projrow {

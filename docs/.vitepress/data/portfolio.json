@@ -72,7 +72,8 @@
       "role": "",
       "description": "",
       "tech": [],
-      "links": []
+      "links": [],
+      "category": "연구실 프로젝트"
     },
     {
       "name": "quality_check_tool",
@@ -80,7 +81,8 @@
       "role": "",
       "description": "",
       "tech": [],
-      "links": []
+      "links": [],
+      "category": "연구실 프로젝트"
     },
     {
       "name": "vannevar",
@@ -88,7 +90,8 @@
       "role": "",
       "description": "",
       "tech": [],
-      "links": []
+      "links": [],
+      "category": "연구실 프로젝트"
     },
     {
       "name": "FAIR 데이터 원칙을 적용한 국내 디지털 아카이브 평가와 개선 방향",
@@ -104,7 +107,8 @@
         "ISO 15489-1",
         "OAIS 모델"
       ],
-      "links": []
+      "links": [],
+      "category": "논문"
     },
     {
       "name": "공공데이터 주소 품질 향상을 위한 절차적 정제 프레임워크(AQRF): 설계와 실증",
@@ -119,7 +123,8 @@
         "KS X ISO 19157 품질지표",
         "규칙기반+의미기반 하이브리드 접근"
       ],
-      "links": []
+      "links": [],
+      "category": "논문"
     },
     {
       "name": "공공데이터 재사용성 향상을 위한 9차원 품질 진단 프레임워크의 설계와 실증",
@@ -139,7 +144,8 @@
         "EUC-KR",
         "CP949)"
       ],
-      "links": []
+      "links": [],
+      "category": "논문"
     },
     {
       "name": "data-quality-check-skill",
@@ -157,7 +163,8 @@
         "Markdown",
         "TTL(W3C DQV)"
       ],
-      "links": []
+      "links": [],
+      "category": "개인 프로젝트"
     },
     {
       "name": "Linklear — URL 정리 AI 에이전트 (지식표현연구 기말과제)",
@@ -172,7 +179,8 @@
         "Neo4j Aura GraphDB",
         "Cypher"
       ],
-      "links": []
+      "links": [],
+      "category": "개인 프로젝트"
     },
     {
       "name": "Linklear",
@@ -189,7 +197,8 @@
         "Vercel",
         "Python"
       ],
-      "links": []
+      "links": [],
+      "category": "개인 프로젝트"
     },
     {
       "name": "character_kb_chatbot",
@@ -212,7 +221,8 @@
         "Vue 3",
         "Vite"
       ],
-      "links": []
+      "links": [],
+      "category": "개인 프로젝트"
     }
   ],
   "awards": [
