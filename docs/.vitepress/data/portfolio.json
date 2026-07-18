@@ -72,6 +72,7 @@
       "role": "",
       "description": "",
       "tech": [],
+      "keywordSnippet": ["주소 관리", "정제", "검증", "품질 검사"],
       "links": []
     },
     {
@@ -80,6 +81,7 @@
       "role": "",
       "description": "",
       "tech": [],
+      "keywordSnippet": ["데이터 품질", "AIRD", "CSV/XLSX", "정제 가이드"],
       "links": []
     },
     {
@@ -88,6 +90,7 @@
       "role": "",
       "description": "",
       "tech": [],
+      "keywordSnippet": ["정리 중", "프로젝트 메모", "후속 작성 가능"],
       "links": []
     },
     {
@@ -103,6 +106,7 @@
         "다중 평가자 교차검증",
         "FAIR 지수 정량화(가중치 기반 100점 산정)"
       ],
+      "keywordSnippet": ["FAIR 원칙", "디지털 아카이브", "정량 평가", "재현가능성"],
       "links": []
     },
     {
@@ -120,6 +124,7 @@
         "도로명주소DB",
         "KS X ISO 19157 품질지표 체계"
       ],
+      "keywordSnippet": ["주소 정제", "행정정합성", "KS X ISO 19157", "실증 연구"],
       "links": []
     },
     {
@@ -143,6 +148,7 @@
         "Constant Metric 분류",
         "임계값 기반 채점"
       ],
+      "keywordSnippet": ["CSV 품질", "9차원 진단", "Gate 메커니즘", "재사용성"],
       "links": []
     },
     {
@@ -161,6 +167,7 @@
         "TTL",
         "RDF"
       ],
+      "keywordSnippet": ["AIRD", "quality_check", "DQV", "정제 가이드"],
       "links": []
     },
     {
@@ -183,6 +190,7 @@
         "Railway",
         "Vercel"
       ],
+      "keywordSnippet": ["링크 크롤링", "그래프 저장", "질의응답", "지식표현"],
       "links": []
     },
     {
@@ -199,6 +207,7 @@
         "Neo4j Aura DB",
         "Cypher"
       ],
+      "keywordSnippet": ["URL 정리", "에이전트 협업", "Neo4j", "주제 분류"],
       "links": []
     },
     {
@@ -221,6 +230,7 @@
         "Railway",
         "Vercel"
       ],
+      "keywordSnippet": ["링크 입력", "주제 분석", "그래프 DB", "디렉토리 탐색"],
       "links": []
     },
     {
@@ -245,6 +255,7 @@
         "Vue 3",
         "Vite"
       ],
+      "keywordSnippet": ["온톨로지", "KuzuDB", "SHACL", "캐릭터 챗봇"],
       "links": []
     }
   ],

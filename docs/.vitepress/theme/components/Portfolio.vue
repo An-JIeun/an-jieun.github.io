@@ -1,6 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue'
-import data from '../../data/portfolio.json'
+import { useAdmin } from '../composables/useAdmin'
+import EditableText from './EditableText.vue'
+import AdminBar from './AdminBar.vue'
+
+// 관리자 편집 스토어 — content 가 화면에 렌더되는 실제(편집 가능) 데이터
+const { content, isAdmin } = useAdmin()
+const data = content // 아래 템플릿에서 기존처럼 data.* 로 읽기 위한 별칭
 
 // 프로젝트를 category(논문 · 연구실 프로젝트 · 개인 프로젝트) 별로 그룹핑
 const PROJECT_ORDER = ['논문', '연구실 프로젝트', '개인 프로젝트']
@@ -39,20 +45,39 @@ const icons = {
   mail: 'M2 4h20v16H2V4Zm2 2v.4l8 5 8-5V6H4Zm16 2.6-8 5-8-5V18h16V8.6Z',
   blog: 'M4 3h16v18l-8-4-8 4V3Zm2 2v11.8l6-3 6 3V5H6Z'
 }
+
+const PROJECT_SUMMARY_LIMIT = 88
+
+function getProjectSummary(project) {
+  const sourceText = (project.summary || project.description || '').split('· 성과:')[0].trim()
+  if (!sourceText) return ''
+  if (sourceText.length <= PROJECT_SUMMARY_LIMIT) return sourceText
+  return `${sourceText.slice(0, PROJECT_SUMMARY_LIMIT - 1).trimEnd()}…`
+}
+
+function getProjectSnippets(project) {
+  return Array.isArray(project.keywordSnippet) ? project.keywordSnippet : []
+}
 </script>
 
 <template>
   <div class="portfolio">
+    <!-- 관리자 로그인 / 편집 컨트롤 (플로팅) -->
+    <AdminBar />
+
     <!-- ── 헤더 ── -->
     <header class="pf-header">
       <img v-if="data.avatar" class="pf-avatar" :src="data.avatar" :alt="data.name" />
       <div class="pf-headtext">
-        <h1 class="pf-name">{{ data.name }}</h1>
-        <p class="pf-title">{{ data.title }}</p>
-        <p class="pf-tagline">{{ data.tagline }}</p>
+        <h1 class="pf-name"><EditableText :obj="data" field="name" inline placeholder="이름" /></h1>
+        <p class="pf-title"><EditableText :obj="data" field="title" inline placeholder="직함 / 분야" /></p>
+        <p class="pf-tagline"><EditableText :obj="data" field="tagline" inline placeholder="한 줄 소개" /></p>
         <div class="pf-meta">
-          <span v-if="data.location">📍 {{ data.location }}</span>
-          <span v-if="data.email">✉️ <a :href="'mailto:' + data.email">{{ data.email }}</a></span>
+          <span v-if="data.location || isAdmin">📍 <EditableText :obj="data" field="location" inline placeholder="지역" /></span>
+          <span v-if="data.email || isAdmin">✉️
+            <a v-if="!isAdmin" :href="'mailto:' + data.email">{{ data.email }}</a>
+            <EditableText v-else :obj="data" field="email" inline placeholder="이메일" />
+          </span>
         </div>
         <div class="pf-links">
           <a v-for="l in data.links" :key="l.url" class="pf-link" :href="l.url"
@@ -71,9 +96,11 @@ const icons = {
     </header>
 
     <!-- ── About ── -->
-    <section v-if="data.about" class="pf-section">
+    <section v-if="data.about || isAdmin" class="pf-section">
       <h2 class="pf-h2">About</h2>
-      <p class="pf-about">{{ data.about }}</p>
+      <div class="pf-about">
+        <EditableText :obj="data" field="about" rich placeholder="자기소개를 입력하세요" />
+      </div>
     </section>
 
     <!-- ── Skills ── -->
@@ -81,40 +108,11 @@ const icons = {
       <h2 class="pf-h2">Skills</h2>
       <div class="pf-skills">
         <div v-for="s in data.skills" :key="s.category" class="pf-skillgroup">
-          <h3 class="pf-skillcat">{{ s.category }}</h3>
+          <h3 class="pf-skillcat"><EditableText :obj="s" field="category" inline placeholder="분류" /></h3>
           <div class="pf-tags">
-            <span v-for="it in s.items" :key="it" class="pf-tag">{{ it }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Projects (한 줄 스니펫) ── -->
-    <section v-if="data.projects && data.projects.length" class="pf-section">
-      <h2 class="pf-h2">Projects</h2>
-      <div v-for="g in groupedProjects" :key="g.cat" class="pf-projgroup">
-        <h3 class="pf-projgrouptitle">{{ g.cat }}</h3>
-        <div class="pf-projlist">
-          <div v-for="it in g.items" :key="it.project.name" class="pf-projitem">
-            <button type="button" class="pf-projrow" :class="{ 'is-open': isProjectOpen(it.idx) }"
-                    :aria-expanded="isProjectOpen(it.idx)" @click="toggleProject(it.idx)">
-              <span class="pf-projcaret" aria-hidden="true">▸</span>
-              <span class="pf-projmain">
-                <span class="pf-projname">{{ it.project.name }}</span>
-                <span v-if="it.project.period" class="pf-projmeta"> · {{ it.project.period }}</span>
-                <span v-if="it.project.role" class="pf-projmeta"> · {{ it.project.role }}</span>
-              </span>
-            </button>
-            <div v-show="isProjectOpen(it.idx)" class="pf-projdetail">
-              <p v-if="it.project.description" class="pf-desc">{{ it.project.description }}</p>
-              <div v-if="it.project.tech && it.project.tech.length" class="pf-tags">
-                <span v-for="t in it.project.tech" :key="t" class="pf-tag pf-tag-sm">{{ t }}</span>
-              </div>
-              <div v-if="it.project.links && it.project.links.length" class="pf-projlinks">
-                <a v-for="ln in it.project.links" :key="ln.url" :href="ln.url"
-                   :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
-              </div>
-            </div>
+            <span v-for="(it, ii) in s.items" :key="ii" class="pf-tag">
+              <EditableText :obj="s.items" :field="ii" inline placeholder="항목" />
+            </span>
           </div>
         </div>
       </div>
@@ -126,10 +124,13 @@ const icons = {
       <div class="pf-timeline">
         <div v-for="(e, i) in data.experience" :key="i" class="pf-tl-item">
           <div class="pf-tl-head">
-            <strong>{{ e.role }}</strong> · {{ e.org }}
-            <span class="pf-period">{{ e.period }}</span>
+            <strong><EditableText :obj="e" field="role" inline placeholder="역할" /></strong> ·
+            <EditableText :obj="e" field="org" inline placeholder="소속" />
+            <span class="pf-period"><EditableText :obj="e" field="period" inline placeholder="기간" /></span>
           </div>
-          <p v-if="e.description" class="pf-desc">{{ e.description }}</p>
+          <div v-if="e.description || isAdmin" class="pf-desc">
+            <EditableText :obj="e" field="description" rich placeholder="설명" />
+          </div>
         </div>
       </div>
     </section>
@@ -140,10 +141,13 @@ const icons = {
       <div class="pf-timeline">
         <div v-for="(a, i) in data.awards" :key="i" class="pf-tl-item">
           <div class="pf-tl-head">
-            <strong>{{ a.title }}</strong><template v-if="a.org"> · {{ a.org }}</template>
-            <span class="pf-period">{{ a.date }}</span>
+            <strong><EditableText :obj="a" field="title" inline placeholder="수상명" /></strong>
+            <template v-if="a.org || isAdmin"> · <EditableText :obj="a" field="org" inline placeholder="기관" /></template>
+            <span class="pf-period"><EditableText :obj="a" field="date" inline placeholder="연도" /></span>
           </div>
-          <p v-if="a.description" class="pf-desc">{{ a.description }}</p>
+          <div v-if="a.description || isAdmin" class="pf-desc">
+            <EditableText :obj="a" field="description" rich placeholder="설명" />
+          </div>
         </div>
       </div>
     </section>
@@ -154,10 +158,11 @@ const icons = {
       <div class="pf-timeline">
         <div v-for="(c, i) in data.certifications" :key="i" class="pf-tl-item">
           <div class="pf-tl-head">
-            <strong>{{ c.name }}</strong><template v-if="c.org"> · {{ c.org }}</template>
-            <span class="pf-period">{{ c.date }}</span>
+            <strong><EditableText :obj="c" field="name" inline placeholder="자격명" /></strong>
+            <template v-if="c.org || isAdmin"> · <EditableText :obj="c" field="org" inline placeholder="기관" /></template>
+            <span class="pf-period"><EditableText :obj="c" field="date" inline placeholder="취득일" /></span>
           </div>
-          <p v-if="c.id" class="pf-desc">자격번호: {{ c.id }}</p>
+          <div v-if="c.id || isAdmin" class="pf-desc">자격번호: <EditableText :obj="c" field="id" inline placeholder="번호" /></div>
         </div>
       </div>
     </section>
@@ -168,10 +173,63 @@ const icons = {
       <div class="pf-timeline">
         <div v-for="(ed, i) in data.education" :key="i" class="pf-tl-item">
           <div class="pf-tl-head">
-            <strong>{{ ed.org }}</strong>
-            <span class="pf-period">{{ ed.period }}</span>
+            <strong><EditableText :obj="ed" field="org" inline placeholder="학교" /></strong>
+            <span class="pf-period"><EditableText :obj="ed" field="period" inline placeholder="기간" /></span>
           </div>
-          <p v-if="ed.degree" class="pf-desc">{{ ed.degree }}</p>
+          <div v-if="ed.degree || isAdmin" class="pf-desc">
+            <EditableText :obj="ed" field="degree" inline placeholder="학위 / 전공" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── Projects (한 줄 스니펫) ── -->
+    <section v-if="data.projects && data.projects.length" class="pf-section pf-section--projects">
+      <h2 class="pf-h2">Projects</h2>
+      <div v-for="g in groupedProjects" :key="g.cat" class="pf-projgroup">
+        <h3 class="pf-projgrouptitle">{{ g.cat }}</h3>
+        <div class="pf-projlist">
+          <div v-for="it in g.items" :key="it.idx" class="pf-projitem">
+            <!-- 방문자: 클릭해서 펼치는 버튼 -->
+            <button v-if="!isAdmin" type="button" class="pf-projrow" :class="{ 'is-open': isProjectOpen(it.idx) }"
+                    :aria-expanded="isProjectOpen(it.idx)" @click="toggleProject(it.idx)">
+              <span class="pf-projcaret" aria-hidden="true">▸</span>
+              <span class="pf-projmain">
+                <span class="pf-projname">{{ it.project.name }}</span>
+                <span v-if="it.project.period" class="pf-projmeta"> · {{ it.project.period }}</span>
+                <span v-if="it.project.role" class="pf-projmeta"> · {{ it.project.role }}</span>
+                <span v-if="getProjectSummary(it.project)" class="pf-projsummary">{{ getProjectSummary(it.project) }}</span>
+              </span>
+            </button>
+            <!-- 관리자: 토글 없이 편집용 헤더 (필드 클릭 = 편집) -->
+            <div v-else class="pf-projrow pf-projrow--edit">
+              <span class="pf-projmain pf-projmain--edit">
+                <EditableText :obj="it.project" field="name" inline placeholder="프로젝트명" />
+                <span class="pf-projmeta"> · <EditableText :obj="it.project" field="period" inline placeholder="기간" /></span>
+                <span class="pf-projmeta"> · <EditableText :obj="it.project" field="role" inline placeholder="역할" /></span>
+              </span>
+            </div>
+
+            <div v-show="isProjectOpen(it.idx) || isAdmin" class="pf-projdetail">
+              <div v-if="it.project.description || isAdmin" class="pf-desc">
+                <EditableText :obj="it.project" field="description" rich placeholder="프로젝트 설명" />
+              </div>
+              <div v-if="getProjectSnippets(it.project).length" class="pf-projsnippets">
+                <span v-for="(snippet, si) in it.project.keywordSnippet" :key="si" class="pf-tag pf-tag-sm">
+                  <EditableText :obj="it.project.keywordSnippet" :field="si" inline placeholder="키워드" />
+                </span>
+              </div>
+              <div v-if="(it.project.tech && it.project.tech.length)" class="pf-tags">
+                <span v-for="(t, ti) in it.project.tech" :key="ti" class="pf-tag pf-tag-sm">
+                  <EditableText :obj="it.project.tech" :field="ti" inline placeholder="기술" />
+                </span>
+              </div>
+              <div v-if="it.project.links && it.project.links.length" class="pf-projlinks">
+                <a v-for="ln in it.project.links" :key="ln.url" :href="ln.url"
+                   :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -268,13 +326,25 @@ const icons = {
   background: none; border: none; cursor: pointer;
   text-align: left; color: inherit; font: inherit;
 }
-.pf-projrow:hover { background: var(--vp-c-bg-soft); }
+.pf-projrow--edit { cursor: default; }
+.pf-projrow:hover:not(.pf-projrow--edit) { background: var(--vp-c-bg-soft); }
 .pf-projcaret { flex-shrink: 0; font-size: .75rem; color: var(--vp-c-text-3); transition: transform .18s ease; }
 .pf-projrow.is-open .pf-projcaret { transform: rotate(90deg); }
 .pf-projmain { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pf-projmain--edit { white-space: normal; overflow: visible; }
 .pf-projname { font-weight: 700; font-size: .96rem; color: var(--vp-c-text-1); }
 .pf-projmeta { font-size: .84rem; color: var(--vp-c-text-3); }
+.pf-projsummary {
+  display: block;
+  margin-top: 4px;
+  font-size: .84rem;
+  color: var(--vp-c-text-2);
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .pf-projdetail { padding: 2px 2px 16px 24px; }
+.pf-projsnippets { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
 .pf-projlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
 .pf-projlinks a { font-size: .85rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; }
 
@@ -293,6 +363,7 @@ const icons = {
   .portfolio { max-width: 100%; padding: 0; color: #000; }
   .pf-tag, .pf-tag-sm { background: transparent !important; }
   .pf-section { break-inside: avoid; }
+  .pf-section--projects { break-before: page; page-break-before: always; }
   .pf-projitem { break-inside: avoid; }
   .pf-projmain { white-space: normal; overflow: visible; } /* PDF 에선 프로젝트명·역할 전체 표시 */
   .pf-projcaret { display: none; }
