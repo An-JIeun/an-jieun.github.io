@@ -4,8 +4,9 @@
     {
       "name": "vitepress-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "docs:dev"],
-      "port": 5173
+      "runtimeArgs": ["run", "docs:dev", "--", "--port", "5199"],
+      "port": 5199,
+      "autoPort": false
     }
   ]
 }
