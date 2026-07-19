@@ -5,8 +5,32 @@ import EditableText from './EditableText.vue'
 import AdminBar from './AdminBar.vue'
 
 // 관리자 편집 스토어 — content 가 화면에 렌더되는 실제(편집 가능) 데이터
-const { content, isAdmin } = useAdmin()
+const { content, isAdmin, markDirty } = useAdmin()
 const data = content // 아래 템플릿에서 기존처럼 data.* 로 읽기 위한 별칭
+
+// ── 항목 추가/삭제 헬퍼 ──
+function addTo(arr, item) {
+  if (!Array.isArray(arr)) return
+  arr.push(JSON.parse(JSON.stringify(item)))
+  markDirty()
+}
+function removeFrom(arr, idx) {
+  if (!Array.isArray(arr)) return
+  if (typeof window !== 'undefined' && !window.confirm('이 항목을 삭제할까요?')) return
+  arr.splice(idx, 1)
+  markDirty()
+}
+// 새 항목 템플릿
+const T = {
+  link: { label: '링크', url: 'https://', icon: 'blog' },
+  skillGroup: { category: '새 분류', items: ['새 항목'] },
+  experience: { role: '역할', org: '소속', period: '', description: '' },
+  award: { title: '수상명', org: '', date: '', description: '' },
+  cert: { name: '자격명', org: '', date: '', id: '' },
+  education: { org: '학교', degree: '', period: '' },
+  project: { name: '새 프로젝트', period: '', role: '', description: '', tech: [], keywordSnippet: [], links: [] },
+  projLink: { label: '링크', url: 'https://' },
+}
 
 // 프로젝트를 category(논문 · 연구실 프로젝트 · 개인 프로젝트) 별로 그룹핑
 const PROJECT_ORDER = ['논문', '연구실 프로젝트', '개인 프로젝트']
@@ -80,15 +104,27 @@ function getProjectSnippets(project) {
           </span>
         </div>
         <div class="pf-links">
-          <a v-for="l in data.links" :key="l.url" class="pf-link" :href="l.url"
-             :target="l.url.startsWith('http') ? '_blank' : undefined" rel="noopener">
-            <svg v-if="icons[l.icon]" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
-              <path :d="icons[l.icon]" fill="currentColor" />
-            </svg>
-            <span>{{ l.label }}</span>
-          </a>
+          <span v-for="(l, li) in data.links" :key="li" class="pf-linkwrap">
+            <a class="pf-link" :href="l.url"
+               :target="l.url.startsWith('http') ? '_blank' : undefined" rel="noopener"
+               @click="isAdmin ? $event.preventDefault() : null">
+              <svg v-if="icons[l.icon]" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                <path :d="icons[l.icon]" fill="currentColor" />
+              </svg>
+              <span v-if="!isAdmin">{{ l.label }}</span>
+              <EditableText v-else :obj="l" field="label" inline placeholder="이름" />
+            </a>
+            <template v-if="isAdmin">
+              <span class="pf-linkedit">
+                <EditableText :obj="l" field="url" inline placeholder="URL" />
+                <EditableText :obj="l" field="icon" inline placeholder="아이콘(github/linkedin/blog/mail)" />
+              </span>
+              <button class="pf-del pf-del-x no-print" type="button" title="링크 삭제" @click="removeFrom(data.links, li)">×</button>
+            </template>
+          </span>
+          <button v-if="isAdmin" class="pf-add pf-add-tag no-print" type="button" @click="addTo(data.links, T.link)">＋ 링크</button>
         </div>
-        <div class="pf-actions no-print">
+        <div v-if="isAdmin" class="pf-actions no-print">
           <a v-if="data.resumePdf" class="pf-btn pf-btn-brand" :href="data.resumePdf" target="_blank" rel="noopener">⬇ PDF 다운로드</a>
           <button class="pf-btn" type="button" @click="printPage">🖨 인쇄 / PDF로 저장</button>
         </div>
@@ -104,22 +140,28 @@ function getProjectSnippets(project) {
     </section>
 
     <!-- ── Skills ── -->
-    <section v-if="data.skills && data.skills.length" class="pf-section">
+    <section v-if="(data.skills && data.skills.length) || isAdmin" class="pf-section">
       <h2 class="pf-h2">Skills</h2>
       <div class="pf-skills">
-        <div v-for="s in data.skills" :key="s.category" class="pf-skillgroup">
-          <h3 class="pf-skillcat"><EditableText :obj="s" field="category" inline placeholder="분류" /></h3>
+        <div v-for="(s, si) in data.skills" :key="si" class="pf-skillgroup">
+          <h3 class="pf-skillcat">
+            <EditableText :obj="s" field="category" inline placeholder="분류" />
+            <button v-if="isAdmin" class="pf-del pf-del-x no-print" type="button" title="분류 삭제" @click="removeFrom(data.skills, si)">×</button>
+          </h3>
           <div class="pf-tags">
             <span v-for="(it, ii) in s.items" :key="ii" class="pf-tag">
               <EditableText :obj="s.items" :field="ii" inline placeholder="항목" />
+              <button v-if="isAdmin" class="pf-del pf-del-x no-print" type="button" title="삭제" @click="removeFrom(s.items, ii)">×</button>
             </span>
+            <button v-if="isAdmin" class="pf-add pf-add-tag no-print" type="button" @click="addTo(s.items, '새 항목')">＋</button>
           </div>
         </div>
       </div>
+      <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.skills, T.skillGroup)">＋ 분류 추가</button>
     </section>
 
     <!-- ── Experience ── -->
-    <section v-if="data.experience && data.experience.length" class="pf-section">
+    <section v-if="(data.experience && data.experience.length) || isAdmin" class="pf-section">
       <h2 class="pf-h2">Experience</h2>
       <div class="pf-timeline">
         <div v-for="(e, i) in data.experience" :key="i" class="pf-tl-item">
@@ -127,16 +169,18 @@ function getProjectSnippets(project) {
             <strong><EditableText :obj="e" field="role" inline placeholder="역할" /></strong> ·
             <EditableText :obj="e" field="org" inline placeholder="소속" />
             <span class="pf-period"><EditableText :obj="e" field="period" inline placeholder="기간" /></span>
+            <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.experience, i)">삭제</button>
           </div>
           <div v-if="e.description || isAdmin" class="pf-desc">
             <EditableText :obj="e" field="description" rich placeholder="설명" />
           </div>
         </div>
       </div>
+      <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.experience, T.experience)">＋ 경력 추가</button>
     </section>
 
     <!-- ── Awards ── -->
-    <section v-if="data.awards && data.awards.length" class="pf-section">
+    <section v-if="(data.awards && data.awards.length) || isAdmin" class="pf-section">
       <h2 class="pf-h2">Awards</h2>
       <div class="pf-timeline">
         <div v-for="(a, i) in data.awards" :key="i" class="pf-tl-item">
@@ -144,16 +188,18 @@ function getProjectSnippets(project) {
             <strong><EditableText :obj="a" field="title" inline placeholder="수상명" /></strong>
             <template v-if="a.org || isAdmin"> · <EditableText :obj="a" field="org" inline placeholder="기관" /></template>
             <span class="pf-period"><EditableText :obj="a" field="date" inline placeholder="연도" /></span>
+            <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.awards, i)">삭제</button>
           </div>
           <div v-if="a.description || isAdmin" class="pf-desc">
             <EditableText :obj="a" field="description" rich placeholder="설명" />
           </div>
         </div>
       </div>
+      <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.awards, T.award)">＋ 수상 추가</button>
     </section>
 
     <!-- ── Certifications ── -->
-    <section v-if="data.certifications && data.certifications.length" class="pf-section">
+    <section v-if="(data.certifications && data.certifications.length) || isAdmin" class="pf-section">
       <h2 class="pf-h2">Certifications</h2>
       <div class="pf-timeline">
         <div v-for="(c, i) in data.certifications" :key="i" class="pf-tl-item">
@@ -161,30 +207,34 @@ function getProjectSnippets(project) {
             <strong><EditableText :obj="c" field="name" inline placeholder="자격명" /></strong>
             <template v-if="c.org || isAdmin"> · <EditableText :obj="c" field="org" inline placeholder="기관" /></template>
             <span class="pf-period"><EditableText :obj="c" field="date" inline placeholder="취득일" /></span>
+            <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.certifications, i)">삭제</button>
           </div>
           <div v-if="c.id || isAdmin" class="pf-desc">자격번호: <EditableText :obj="c" field="id" inline placeholder="번호" /></div>
         </div>
       </div>
+      <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.certifications, T.cert)">＋ 자격증 추가</button>
     </section>
 
     <!-- ── Education ── -->
-    <section v-if="data.education && data.education.length" class="pf-section">
+    <section v-if="(data.education && data.education.length) || isAdmin" class="pf-section">
       <h2 class="pf-h2">Education</h2>
       <div class="pf-timeline">
         <div v-for="(ed, i) in data.education" :key="i" class="pf-tl-item">
           <div class="pf-tl-head">
             <strong><EditableText :obj="ed" field="org" inline placeholder="학교" /></strong>
             <span class="pf-period"><EditableText :obj="ed" field="period" inline placeholder="기간" /></span>
+            <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.education, i)">삭제</button>
           </div>
           <div v-if="ed.degree || isAdmin" class="pf-desc">
             <EditableText :obj="ed" field="degree" inline placeholder="학위 / 전공" />
           </div>
         </div>
       </div>
+      <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.education, T.education)">＋ 학력 추가</button>
     </section>
 
-    <!-- ── Projects (한 줄 스니펫) ── -->
-    <section v-if="data.projects && data.projects.length" class="pf-section pf-section--projects">
+    <!-- ── Projects ── -->
+    <section v-if="(data.projects && data.projects.length) || isAdmin" class="pf-section pf-section--projects">
       <h2 class="pf-h2">Projects</h2>
       <div v-for="g in groupedProjects" :key="g.cat" class="pf-projgroup">
         <h3 class="pf-projgrouptitle">{{ g.cat }}</h3>
@@ -208,30 +258,50 @@ function getProjectSnippets(project) {
                 <span class="pf-projmeta"> · <EditableText :obj="it.project" field="period" inline placeholder="기간" /></span>
                 <span class="pf-projmeta"> · <EditableText :obj="it.project" field="role" inline placeholder="역할" /></span>
               </span>
+              <button class="pf-del no-print" type="button" title="프로젝트 삭제" @click="removeFrom(data.projects, it.idx)">삭제</button>
             </div>
 
             <div v-show="isProjectOpen(it.idx) || isAdmin" class="pf-projdetail">
               <div v-if="it.project.description || isAdmin" class="pf-desc">
                 <EditableText :obj="it.project" field="description" rich placeholder="프로젝트 설명" />
               </div>
-              <div v-if="getProjectSnippets(it.project).length" class="pf-projsnippets">
+
+              <!-- 키워드 스니펫 -->
+              <div v-if="getProjectSnippets(it.project).length || isAdmin" class="pf-projsnippets">
                 <span v-for="(snippet, si) in it.project.keywordSnippet" :key="si" class="pf-tag pf-tag-sm">
                   <EditableText :obj="it.project.keywordSnippet" :field="si" inline placeholder="키워드" />
+                  <button v-if="isAdmin" class="pf-del pf-del-x no-print" type="button" title="삭제" @click="removeFrom(it.project.keywordSnippet, si)">×</button>
                 </span>
+                <button v-if="isAdmin" class="pf-add pf-add-tag no-print" type="button" @click="addTo(it.project.keywordSnippet, '키워드')">＋</button>
               </div>
-              <div v-if="(it.project.tech && it.project.tech.length)" class="pf-tags">
+
+              <!-- 기술 태그 -->
+              <div v-if="(it.project.tech && it.project.tech.length) || isAdmin" class="pf-tags">
                 <span v-for="(t, ti) in it.project.tech" :key="ti" class="pf-tag pf-tag-sm">
                   <EditableText :obj="it.project.tech" :field="ti" inline placeholder="기술" />
+                  <button v-if="isAdmin" class="pf-del pf-del-x no-print" type="button" title="삭제" @click="removeFrom(it.project.tech, ti)">×</button>
                 </span>
+                <button v-if="isAdmin" class="pf-add pf-add-tag no-print" type="button" @click="addTo(it.project.tech, '기술')">＋</button>
               </div>
-              <div v-if="it.project.links && it.project.links.length" class="pf-projlinks">
-                <a v-for="ln in it.project.links" :key="ln.url" :href="ln.url"
-                   :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
+
+              <!-- 링크 -->
+              <div v-if="(it.project.links && it.project.links.length) || isAdmin" class="pf-projlinks">
+                <span v-for="(ln, lni) in it.project.links" :key="lni" class="pf-projlinkwrap">
+                  <a v-if="!isAdmin" :href="ln.url"
+                     :target="ln.url.startsWith('http') ? '_blank' : undefined" rel="noopener">{{ ln.label }} ↗</a>
+                  <template v-else>
+                    <EditableText :obj="ln" field="label" inline placeholder="링크 이름" />
+                    <EditableText :obj="ln" field="url" inline placeholder="URL" />
+                    <button class="pf-del pf-del-x no-print" type="button" title="삭제" @click="removeFrom(it.project.links, lni)">×</button>
+                  </template>
+                </span>
+                <button v-if="isAdmin" class="pf-add pf-add-tag no-print" type="button" @click="addTo(it.project.links, T.projLink)">＋ 링크</button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.projects, T.project)">＋ 프로젝트 추가</button>
     </section>
 
   </div>
@@ -266,7 +336,9 @@ function getProjectSnippets(project) {
 .pf-tagline { color: var(--vp-c-text-2); margin: 8px 0 0; }
 .pf-meta { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; font-size: .9rem; color: var(--vp-c-text-2); }
 .pf-meta a { color: inherit; }
-.pf-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+.pf-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 14px; }
+.pf-linkwrap { display: inline-flex; align-items: center; gap: 4px; }
+.pf-linkedit { display: inline-flex; flex-direction: column; font-size: .72rem; color: var(--vp-c-text-3); }
 .pf-link {
   display: inline-flex; align-items: center; gap: 6px;
   font-size: .85rem; font-weight: 500;
@@ -300,8 +372,9 @@ function getProjectSnippets(project) {
 /* 스킬 */
 .pf-skills { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
 .pf-skillcat { font-size: .95rem; font-weight: 700; margin: 0 0 8px; color: var(--vp-c-text-1); }
-.pf-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.pf-tags { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .pf-tag {
+  display: inline-flex; align-items: center; gap: 4px;
   font-size: .82rem; padding: 4px 10px; border-radius: 6px;
   background: var(--vp-c-brand-soft); color: var(--vp-c-brand-1); font-weight: 500;
 }
@@ -309,6 +382,28 @@ function getProjectSnippets(project) {
 
 .pf-period { font-size: .8rem; color: var(--vp-c-text-3); white-space: nowrap; }
 .pf-desc { font-size: .92rem; line-height: 1.65; color: var(--vp-c-text-2); margin: 6px 0; }
+
+/* 추가/삭제 버튼 */
+.pf-add {
+  margin-top: 12px;
+  font-size: .8rem; font-weight: 600; cursor: pointer;
+  padding: 5px 12px; border-radius: 8px;
+  border: 1px dashed var(--vp-c-brand-1); background: transparent;
+  color: var(--vp-c-brand-1);
+}
+.pf-add:hover { background: var(--vp-c-brand-soft); }
+.pf-add-tag { margin-top: 0; padding: 3px 9px; border-radius: 6px; }
+.pf-del {
+  font-size: .72rem; font-weight: 600; cursor: pointer;
+  padding: 2px 8px; border-radius: 6px; margin-left: 6px;
+  border: 1px solid var(--vp-c-divider); background: transparent;
+  color: var(--vp-c-text-3);
+}
+.pf-del:hover { border-color: #e11d48; color: #e11d48; }
+.pf-del-x {
+  margin-left: 2px; padding: 0; width: 16px; height: 16px; line-height: 1;
+  border-radius: 50%; font-size: .78rem;
+}
 
 /* 프로젝트 — 카테고리 그룹(논문·연구실·개인) + 한 줄 스니펫 + 클릭 시 펼침 */
 .pf-projgroup { margin-top: 18px; }
@@ -326,7 +421,7 @@ function getProjectSnippets(project) {
   background: none; border: none; cursor: pointer;
   text-align: left; color: inherit; font: inherit;
 }
-.pf-projrow--edit { cursor: default; }
+.pf-projrow--edit { cursor: default; align-items: flex-start; }
 .pf-projrow:hover:not(.pf-projrow--edit) { background: var(--vp-c-bg-soft); }
 .pf-projcaret { flex-shrink: 0; font-size: .75rem; color: var(--vp-c-text-3); transition: transform .18s ease; }
 .pf-projrow.is-open .pf-projcaret { transform: rotate(90deg); }
@@ -344,8 +439,9 @@ function getProjectSnippets(project) {
   text-overflow: ellipsis;
 }
 .pf-projdetail { padding: 2px 2px 16px 24px; }
-.pf-projsnippets { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 6px; }
-.pf-projlinks { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+.pf-projsnippets { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 10px 0 6px; }
+.pf-projlinks { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 10px; }
+.pf-projlinkwrap { display: inline-flex; align-items: center; gap: 6px; }
 .pf-projlinks a { font-size: .85rem; font-weight: 600; color: var(--vp-c-brand-1); text-decoration: none; }
 
 /* 타임라인 */

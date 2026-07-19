@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "docs:dev", "--", "--port", "5199"],
       "port": 5199,
       "autoPort": false
+    },
+    {
+      "name": "vitepress-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "docs:preview", "--", "--port", "5200"],
+      "port": 5200,
+      "autoPort": false
     }
   ]
 }
