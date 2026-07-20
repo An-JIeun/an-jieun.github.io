@@ -45,6 +45,9 @@ jobs:
         run: npm ci # or pnpm install / yarn install / bun install
       - name: Build with VitePress
         run: npm run docs:build # or pnpm docs:build / yarn docs:build / bun run docs:build
+      - name: Install Korean fonts (for PDF rendering)
+        # 우분투 러너의 Chromium 에 한글 글꼴이 없어 PDF 한글이 깨지는 문제 해결
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk fonts-noto-color-emoji
       - name: Generate portfolio PDF
         # 포트폴리오 홈(/)을 portfolio.pdf 로 렌더해 dist 에 포함(다운로드 링크 /portfolio.pdf).
         # 실패해도 사이트 배포는 계속되도록 continue-on-error 로 둔다.

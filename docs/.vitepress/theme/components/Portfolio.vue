@@ -507,19 +507,23 @@ function getProjectSnippets(project) {
 
 /* ── 인쇄 / PDF ── */
 @media print {
+  /* 화면과 동일하게 색·배경(칩·카드 포함)을 그대로 인쇄 */
+  .portfolio,
+  .portfolio * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
   .no-print { display: none !important; }
-  .portfolio { max-width: 100%; padding: 0; color: #000; }
-  .pf-tag, .pf-tag-sm { background: transparent !important; }
-  .pf-card { background: transparent !important; border: none !important; padding: 0 !important; }
-  .pf-card .pf-h2 { font-size: 1.35rem; }
-  .pf-cols2 { gap: 0 40px; }
+  .portfolio { max-width: 100%; padding: 0; }
+  .pf-cols2 { gap: 16px; }
   .pf-section { break-inside: avoid; }
+  .pf-card { break-inside: avoid; }
   .pf-section--projects { break-before: page; page-break-before: always; }
   .pf-projitem { break-inside: avoid; }
-  .pf-projmain { white-space: normal; overflow: visible; } /* PDF 에선 프로젝트명·역할 전체 표시 */
+  .pf-projmain { white-space: normal; overflow: visible; } /* 프로젝트명·역할 전체 표시 */
   .pf-projcaret { display: none; }
-  .pf-projdetail { display: block !important; } /* PDF 에선 모든 프로젝트 설명 펼쳐서 표시 */
-  .pf-avatar { border-color: #888; }
-  a { color: #000 !important; text-decoration: none; }
+  .pf-projsummary { display: none !important; } /* 미리보기(요약) 텍스트 숨김 */
+  .pf-projdetail { display: block !important; } /* 전체 설명만 펼쳐서 표시 */
+  a { text-decoration: none; }
 }
 </style>
