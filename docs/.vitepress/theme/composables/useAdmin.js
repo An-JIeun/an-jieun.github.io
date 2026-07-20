@@ -17,10 +17,19 @@ const ADMIN_PASSWORD = 'jieun2026'
 
 const STORAGE_KEY = 'pf-admin-content-v1'
 const AUTH_KEY = 'pf-admin-auth-v1'
+const VERSION_KEY = 'pf-admin-base-v1'
 
 function deepClone(o) {
   return JSON.parse(JSON.stringify(o))
 }
+
+// 원본(portfolio.json)의 간단한 지문. 원본이 바뀌면 값이 달라진다.
+function hashStr(s) {
+  let h = 0
+  for (let i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) | 0
+  return String(h)
+}
+const baseVersion = hashStr(JSON.stringify(base))
 
 // reactive 객체를 src 내용으로 통째로 교체 (키 삭제 후 재할당)
 function applyObject(target, src) {
@@ -41,6 +50,7 @@ function persist() {
   if (typeof window === 'undefined') return
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(content))
+    localStorage.setItem(VERSION_KEY, baseVersion)
   } catch (e) {
     // 용량 초과(주로 큰 이미지) — 세션 편집본은 유지되고 내보내기는 가능하지만
     // 새로고침 후 복원은 안 될 수 있음을 알린다.
@@ -62,12 +72,18 @@ function initAdmin() {
   initialized = true
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) {
+    const savedVer = localStorage.getItem(VERSION_KEY)
+    if (raw && savedVer === baseVersion) {
+      // 원본이 그대로일 때만 저장된 초안을 복원
       applyObject(content, JSON.parse(raw))
       // 저장본에 없던 새 항목(예: papers)은 원본에서 보강 — 스키마가 늘어나도 안전
       Object.keys(base).forEach((k) => {
         if (content[k] === undefined) content[k] = deepClone(base[k])
       })
+    } else if (raw) {
+      // 원본(portfolio.json)이 바뀌었으면 오래된 초안을 버리고 새 원본을 쓴다
+      localStorage.removeItem(STORAGE_KEY)
+      localStorage.removeItem(VERSION_KEY)
     }
     if (localStorage.getItem(AUTH_KEY) === '1') isAdmin.value = true
   } catch (e) {
@@ -99,6 +115,7 @@ function resetContent() {
   applyObject(content, base)
   try {
     localStorage.removeItem(STORAGE_KEY)
+    localStorage.removeItem(VERSION_KEY)
   } catch (e) {}
   dirty.value = false
   revision.value++

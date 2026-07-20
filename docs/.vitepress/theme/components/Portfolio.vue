@@ -163,10 +163,48 @@ function getProjectSnippets(project) {
       <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.skills, T.skillGroup)">＋ 분류 추가</button>
     </section>
 
+    <!-- ── Education · Certifications (한 줄 · 2단) ── -->
+    <div class="pf-cols2">
+      <!-- Education -->
+      <section v-if="(data.education && data.education.length) || isAdmin" class="pf-section pf-card">
+        <h2 class="pf-h2">Education</h2>
+        <div class="pf-timeline">
+          <div v-for="(ed, i) in data.education" :key="i" class="pf-tl-item">
+            <div class="pf-tl-head">
+              <strong><EditableText :obj="ed" field="org" inline placeholder="학교" /></strong>
+              <span class="pf-period"><EditableText :obj="ed" field="period" inline placeholder="기간" /></span>
+              <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.education, i)">삭제</button>
+            </div>
+            <div v-if="ed.degree || isAdmin" class="pf-desc">
+              <EditableText :obj="ed" field="degree" inline placeholder="학위 / 전공" />
+            </div>
+          </div>
+        </div>
+        <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.education, T.education)">＋ 학력 추가</button>
+      </section>
+
+      <!-- Certifications -->
+      <section v-if="(data.certifications && data.certifications.length) || isAdmin" class="pf-section pf-card">
+        <h2 class="pf-h2">Certifications</h2>
+        <div class="pf-timeline">
+          <div v-for="(c, i) in data.certifications" :key="i" class="pf-tl-item">
+            <div class="pf-tl-head">
+              <strong><EditableText :obj="c" field="name" inline placeholder="자격명" /></strong>
+              <template v-if="c.org || isAdmin"> · <EditableText :obj="c" field="org" inline placeholder="기관" /></template>
+              <span class="pf-period"><EditableText :obj="c" field="date" inline placeholder="취득일" /></span>
+              <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.certifications, i)">삭제</button>
+            </div>
+            <div v-if="c.id || isAdmin" class="pf-desc">자격번호: <EditableText :obj="c" field="id" inline placeholder="번호" /></div>
+          </div>
+        </div>
+        <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.certifications, T.cert)">＋ 자격증 추가</button>
+      </section>
+    </div>
+
     <!-- ── Experience · Awards (한 줄 · 2단) ── -->
     <div class="pf-cols2">
       <!-- Experience -->
-      <section v-if="(data.experience && data.experience.length) || isAdmin" class="pf-section">
+      <section v-if="(data.experience && data.experience.length) || isAdmin" class="pf-section pf-card">
         <h2 class="pf-h2">Experience</h2>
         <div class="pf-timeline">
           <div v-for="(e, i) in data.experience" :key="i" class="pf-tl-item">
@@ -185,7 +223,7 @@ function getProjectSnippets(project) {
       </section>
 
       <!-- Awards -->
-      <section v-if="(data.awards && data.awards.length) || isAdmin" class="pf-section">
+      <section v-if="(data.awards && data.awards.length) || isAdmin" class="pf-section pf-card">
         <h2 class="pf-h2">Awards</h2>
         <div class="pf-timeline">
           <div v-for="(a, i) in data.awards" :key="i" class="pf-tl-item">
@@ -201,44 +239,6 @@ function getProjectSnippets(project) {
           </div>
         </div>
         <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.awards, T.award)">＋ 수상 추가</button>
-      </section>
-    </div>
-
-    <!-- ── Education · Certifications (한 줄 · 2단) ── -->
-    <div class="pf-cols2">
-      <!-- Education -->
-      <section v-if="(data.education && data.education.length) || isAdmin" class="pf-section">
-        <h2 class="pf-h2">Education</h2>
-        <div class="pf-timeline">
-          <div v-for="(ed, i) in data.education" :key="i" class="pf-tl-item">
-            <div class="pf-tl-head">
-              <strong><EditableText :obj="ed" field="org" inline placeholder="학교" /></strong>
-              <span class="pf-period"><EditableText :obj="ed" field="period" inline placeholder="기간" /></span>
-              <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.education, i)">삭제</button>
-            </div>
-            <div v-if="ed.degree || isAdmin" class="pf-desc">
-              <EditableText :obj="ed" field="degree" inline placeholder="학위 / 전공" />
-            </div>
-          </div>
-        </div>
-        <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.education, T.education)">＋ 학력 추가</button>
-      </section>
-
-      <!-- Certifications -->
-      <section v-if="(data.certifications && data.certifications.length) || isAdmin" class="pf-section">
-        <h2 class="pf-h2">Certifications</h2>
-        <div class="pf-timeline">
-          <div v-for="(c, i) in data.certifications" :key="i" class="pf-tl-item">
-            <div class="pf-tl-head">
-              <strong><EditableText :obj="c" field="name" inline placeholder="자격명" /></strong>
-              <template v-if="c.org || isAdmin"> · <EditableText :obj="c" field="org" inline placeholder="기관" /></template>
-              <span class="pf-period"><EditableText :obj="c" field="date" inline placeholder="취득일" /></span>
-              <button v-if="isAdmin" class="pf-del no-print" type="button" @click="removeFrom(data.certifications, i)">삭제</button>
-            </div>
-            <div v-if="c.id || isAdmin" class="pf-desc">자격번호: <EditableText :obj="c" field="id" inline placeholder="번호" /></div>
-          </div>
-        </div>
-        <button v-if="isAdmin" class="pf-add no-print" type="button" @click="addTo(data.certifications, T.cert)">＋ 자격증 추가</button>
       </section>
     </div>
 
@@ -404,9 +404,17 @@ function getProjectSnippets(project) {
 }
 .pf-about { line-height: 1.75; color: var(--vp-c-text-1); }
 
-/* 두 섹션을 한 줄(2단)로 */
-.pf-cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 40px; margin-top: 36px; align-items: start; }
+/* 두 섹션을 한 줄(2단)로 — 동일 높이 카드로 정돈 */
+.pf-cols2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; align-items: stretch; }
 .pf-cols2 > .pf-section { margin-top: 0; }
+.pf-card {
+  height: 100%;
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 14px;
+  padding: 18px 22px;
+}
+.pf-card .pf-h2 { font-size: 1.05rem; margin: 0 0 12px; }
 
 /* 논문 메타(저자·게재지·DOI) */
 .pf-papermeta { font-size: .84rem; color: var(--vp-c-text-3); margin-top: 4px; }
@@ -493,8 +501,8 @@ function getProjectSnippets(project) {
 @media (max-width: 640px) {
   .pf-header { flex-direction: column; text-align: center; }
   .pf-meta, .pf-links, .pf-actions { justify-content: center; }
-  .pf-cols2 { grid-template-columns: 1fr; gap: 0; }
-  .pf-cols2 > .pf-section { margin-top: 36px; }
+  .pf-cols2 { grid-template-columns: 1fr; gap: 16px; }
+  .pf-cols2 > .pf-section { margin-top: 0; }
 }
 
 /* ── 인쇄 / PDF ── */
@@ -502,6 +510,9 @@ function getProjectSnippets(project) {
   .no-print { display: none !important; }
   .portfolio { max-width: 100%; padding: 0; color: #000; }
   .pf-tag, .pf-tag-sm { background: transparent !important; }
+  .pf-card { background: transparent !important; border: none !important; padding: 0 !important; }
+  .pf-card .pf-h2 { font-size: 1.35rem; }
+  .pf-cols2 { gap: 0 40px; }
   .pf-section { break-inside: avoid; }
   .pf-section--projects { break-before: page; page-break-before: always; }
   .pf-projitem { break-inside: avoid; }
