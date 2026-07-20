@@ -35,7 +35,7 @@ const T = {
 }
 
 // 프로젝트를 category 별로 그룹핑
-const PROJECT_ORDER = ['연구실 프로젝트', '수업 프로젝트', '개인 프로젝트']
+const PROJECT_ORDER = ['연구실 내부 프로젝트', '개인 프로젝트']
 const groupedProjects = computed(() => {
   const groups = {}
   ;(data.projects || []).forEach((p, idx) => {

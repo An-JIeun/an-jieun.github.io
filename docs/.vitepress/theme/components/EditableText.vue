@@ -40,6 +40,11 @@ onMounted(() => nextTick(syncFromValue))
 watch(revision, () => nextTick(syncFromValue))
 // 로그인/로그아웃으로 에디터가 새로 마운트될 때도 반영
 watch(isAdmin, () => nextTick(syncFromValue))
+// 항목 추가/삭제로 배열 인덱스가 밀려 값이 바뀌면 다시 그린다.
+// (편집 중이 아닐 때만 — 타이핑 중 커서가 튀지 않도록)
+watch(value, () => {
+  if (!focused.value) nextTick(syncFromValue)
+})
 
 // DOM → 데이터 반영
 function writeBack() {
