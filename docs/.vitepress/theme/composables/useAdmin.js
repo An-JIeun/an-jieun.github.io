@@ -42,7 +42,9 @@ function persist() {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(content))
   } catch (e) {
-    /* 용량 초과 등은 무시 */
+    // 용량 초과(주로 큰 이미지) — 세션 편집본은 유지되고 내보내기는 가능하지만
+    // 새로고침 후 복원은 안 될 수 있음을 알린다.
+    console.warn('[admin] 브라우저 저장 용량 초과 — 큰 이미지는 docs/public 에 넣고 URL로 추가하는 것을 권장합니다.', e)
   }
 }
 
@@ -60,7 +62,13 @@ function initAdmin() {
   initialized = true
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) applyObject(content, JSON.parse(raw))
+    if (raw) {
+      applyObject(content, JSON.parse(raw))
+      // 저장본에 없던 새 항목(예: papers)은 원본에서 보강 — 스키마가 늘어나도 안전
+      Object.keys(base).forEach((k) => {
+        if (content[k] === undefined) content[k] = deepClone(base[k])
+      })
+    }
     if (localStorage.getItem(AUTH_KEY) === '1') isAdmin.value = true
   } catch (e) {
     /* 손상된 데이터는 무시하고 기본값 사용 */

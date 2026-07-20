@@ -23,6 +23,11 @@
       "icon": "blog"
     },
     {
+      "label": "Velog",
+      "url": "https://velog.io/@",
+      "icon": "velog"
+    },
+    {
       "label": "Email",
       "url": "mailto:aje20010827@gmail.com",
       "icon": "mail"
@@ -65,198 +70,185 @@
       ]
     }
   ],
+  "papers": [
+    {
+      "title": "공공데이터 재사용성 향상을 위한 9차원 품질 진단 프레임워크의 설계와 실증",
+      "authors": "제1저자 (교신저자 김학래 교수)",
+      "venue": "정보관리학회지 제43권 제2호, 329–352",
+      "year": "2026",
+      "doi": "",
+      "description": "공공데이터 CSV 파일의 재사용성을 자동으로 진단하는 9차원 품질평가 프레임워크를 제안한 연구다. 행정안전부 4대 지표와 ISO/IEC 25024 메트릭 체계를 기반으로 구조완결성·스키마안정성·의미중복도·재사용적합성·표준연계성 5개 차원을 추가하고, Gate 메커니즘과 참조데이터 기반 규칙엔진으로 자동화 진단 파이프라인을 구현했다. 산업통상자원부 산하 19개 기관의 CSV 1,258건을 실증분석하여 적시성 취약과 기관 간 품질 편차를 확인하고 기관 맞춤형 큐레이션의 필요성을 제시했다.",
+      "links": []
+    },
+    {
+      "title": "공공데이터 주소 품질 향상을 위한 절차적 정제 프레임워크(AQRF): 설계와 실증",
+      "authors": "제1저자 (교신저자 김학래 교수)",
+      "venue": "지적과 국토정보 제55권 제2호, 157–172 (한국국토정보공사)",
+      "year": "2025",
+      "doi": "10.22640/lxsiri.2025.55.2.157",
+      "description": "공공데이터의 주소 품질을 체계적으로 개선하기 위해 의미 단위 분해·구성요소 보완·행정정합성 검증·오류 수정의 4단계로 구성된 절차 기반 프레임워크(AQRF)를 제안한 연구다. 보건의료 5개 공공데이터세트 약 14,000건을 대상으로 실증한 결과 평균 정제 성공률 99.18%를 달성했고, KS X ISO 19157 기준의 구성요소 인식과 행정정합성이 일관되게 향상되었다. 주소 품질을 필드 수준 정확성 문제가 아니라 데이터세트 간 구조적 관계로 재개념화하고 품질관리 단위를 프로세스 자체로 확장한 점이 핵심 기여다.",
+      "links": []
+    },
+    {
+      "title": "FAIR 데이터 원칙을 적용한 국내 디지털 아카이브 평가와 개선 방향",
+      "authors": "공동저자",
+      "venue": "한국기록관리학회지 24(4), 113–134",
+      "year": "2024",
+      "doi": "10.14404/JKSARM.2024.24.4.113",
+      "description": "탐색성·접근성·상호운용성·재사용성(FAIR) 관점에서 디지털 아카이브를 평가하는 방법론을 제시하고, 국내 디지털 아카이브 261개를 조사해 최종 선정한 69개를 대상으로 FAIR 데이터 원칙 준수 여부를 정량 분석한 연구다. ARDC FAIR Self Assessment Tool의 세부 지표를 디지털 아카이브 특성에 맞게 재해석·구체화해 적용했으며, 국내 디지털 아카이브가 전반적으로 FAIR 원칙을 반영하지 못하고 특히 상호운용성과 재사용성이 매우 낮음을 확인했다.",
+      "links": []
+    }
+  ],
   "projects": [
     {
-      "name": "address_management_tool",
-      "period": "",
-      "role": "",
-      "description": "",
-      "tech": [],
-      "keywordSnippet": ["주소 관리", "정제", "검증", "품질 검사"],
-      "links": []
+      "name": "Vannevar — 공공데이터 정제 도구",
+      "category": "연구실 프로젝트",
+      "period": "2023",
+      "role": "연구실 프로젝트",
+      "description": "산출물 일환으로 제작한, 주소 정제까지 지원하는 공공데이터 정제 도구다. 공공데이터 테이블 세트를 입력받으면 컬럼명을 기준으로 컬럼을 분류하고, 분류에 맞는 정제 모듈을 적용한 뒤 정제 전후 품질 평가와 정제 리포트를 제공한다. 외부 개발자와 협업하며 기능 요구서를 작성했고, 행정안전부 과제 데모로 제출했다.",
+      "tech": ["Vue", "Python", "Django"],
+      "keywordSnippet": ["공공데이터 정제", "컬럼 자동 분류", "품질 리포트", "행안부 데모"],
+      "links": [],
+      "images": []
     },
     {
-      "name": "quality_check_tool",
-      "period": "",
-      "role": "",
-      "description": "",
-      "tech": [],
-      "keywordSnippet": ["데이터 품질", "AIRD", "CSV/XLSX", "정제 가이드"],
-      "links": []
-    },
-    {
-      "name": "vannevar",
-      "period": "",
-      "role": "",
-      "description": "",
-      "tech": [],
-      "keywordSnippet": ["정리 중", "프로젝트 메모", "후속 작성 가능"],
-      "links": []
-    },
-    {
-      "name": "FAIR 데이터 원칙을 적용한 국내 디지털 아카이브 평가와 개선 방향",
+      "name": "주소정보 활용 페이지",
+      "category": "연구실 프로젝트",
       "period": "2024",
-      "role": "공동저자",
-      "description": "탐색성·접근성·상호운용성·재사용성(FAIR) 관점에서 디지털 아카이브를 평가하는 방법론을 제시하고, 국내 디지털 아카이브 261개를 조사해 최종 선정한 69개를 대상으로 FAIR 데이터 원칙 준수 여부를 정량 분석한 연구다. ARDC FAIR Self Assessment Tool의 세부 지표를 디지털 아카이브 특성에 맞게 재해석·구체화해 적용했으며, 국내 디지털 아카이브가 전반적으로 FAIR 원칙을 반영하지 못하고 특히 상호운용성과 재사용성이 매우 낮음을 확인했다.  · 성과: 한국기록관리학회지 24(4), 113-134 게재 (2024.11, DOI 10.14404/JKSARM.2024.24.4.113). 국내 디지털 아카이브 261개 조사 및 69개 정밀 평가 수행. 조사 대상 261개 중 74%가 탐색·접근에 제한, 평가 대상 69개의 FAIR 평균 점수 50.43점. 세부 지표 해석 전문을 깃헙에 공개해 재현가능성 확보.",
-      "tech": [
-        "ARDC FAIR Self Assessment Tool",
-        "FAIR 데이터 원칙",
-        "구글 검색 기반 수집",
-        "DADA 웹 크롤링",
-        "다중 평가자 교차검증",
-        "FAIR 지수 정량화(가중치 기반 100점 산정)"
-      ],
-      "keywordSnippet": ["FAIR 원칙", "디지털 아카이브", "정량 평가", "재현가능성"],
-      "links": []
+      "role": "'주소 지식그래프 활용 환경 마련' 과제 산출물",
+      "description": "주소 지식 모델을 소개하고 지식그래프 사용을 돕기 위한 페이지다. 주소지식그래프 DB에 대한 SPARQL 쿼리 검색, 주소정보 데이터 파일 다운로드, API 서비스를 제공한다.",
+      "tech": ["Vue", "Python", "FastAPI", "MySQL", "네이버 클라우드"],
+      "keywordSnippet": ["SPARQL 검색", "데이터 다운로드", "API 서비스"],
+      "links": [],
+      "images": []
     },
     {
-      "name": "공공데이터 주소 품질 향상을 위한 절차적 정제 프레임워크(AQRF): 설계와 실증",
+      "name": "주소 데이터 가이드",
+      "category": "연구실 프로젝트",
+      "period": "2024",
+      "role": "페이지 전반 개발 · 정제 파트 작성",
+      "description": "주소 데이터의 활용 방법을 홍보하기 위한 가이드다. 주소 데이터의 구성과, 주소활용지원센터에서 데이터를 내려받아 가공·활용하는 방법을 안내한다. LX 주소정보활용지원센터 홈페이지에 링크로 게시되어 있다.",
+      "tech": ["VitePress", "Linux(서버 배포·관리)"],
+      "keywordSnippet": ["주소 데이터 가이드", "LX 게시", "정제 파트 작성"],
+      "links": [],
+      "images": [
+        { "src": "/static/img/projects/image1.png", "caption": "주소 데이터 가이드" },
+        { "src": "/static/img/projects/image2.png", "caption": "주소 데이터 가이드" }
+      ]
+    },
+    {
+      "name": "Knowledge Factory — 주소 지식그래프 변환 도구",
+      "category": "연구실 프로젝트",
+      "period": "2024",
+      "role": "'주소 지식그래프 활용 환경 마련' 과제 산출물",
+      "description": "주소정보 사이트에서 주기적으로 DB 형태의 주소정보를 내려받아 지식그래프 형식으로 변환하고 그래프 DB에 적재하는 도구다. 벌크 데이터를 다운로드해 서버 데이터베이스를 업데이트하는 모듈과, 주소 데이터를 지식그래프 형식으로 일괄 변환하는 모듈을 제작했다.",
+      "tech": ["MySQL", "Python", "Linux"],
+      "keywordSnippet": ["지식그래프 변환", "벌크 적재", "주소정보"],
+      "links": [],
+      "images": []
+    },
+    {
+      "name": "Entity Search",
+      "category": "연구실 프로젝트",
+      "period": "2024",
+      "role": "연구실 프로젝트",
+      "description": "공공데이터에 존재하는 상호·기업명 같은 엔티티를 통합하고, 주소 데이터 및 부가 정보와 연계해 조회하는 데모 서비스다. 주소나 상호명을 검색하면 해당 상호/주소를 포함한 데이터와 부가 정보를 함께 보여준다.",
+      "tech": ["MongoDB", "MySQL", "Flask", "Vue"],
+      "keywordSnippet": ["엔티티 통합", "상호·주소 검색", "데이터 연계"],
+      "links": [],
+      "images": []
+    },
+    {
+      "name": "주소 지식그래프 관리 도구",
+      "category": "연구실 프로젝트",
       "period": "2025",
-      "role": "제1저자 (안지은, 중앙대학교 문헌정보학과 석사과정 / 교신저자 김학래 교수)",
-      "description": "공공데이터의 주소 품질을 체계적으로 개선하기 위해 의미 단위 분해·구성요소 보완·행정정합성 검증·오류 수정의 4단계로 구성된 절차 기반 프레임워크(AQRF)를 제안한 연구다. 보건의료 5개 공공데이터세트 약 14,000건을 대상으로 실증한 결과 평균 정제 성공률 99.18%를 달성했고, KS X ISO 19157 기준의 구성요소 인식과 행정정합성이 일관되게 향상되었다. 주소 품질을 필드 수준 정확성 문제가 아니라 데이터세트 간 구조적 관계로 재개념화하고 품질관리 단위를 프로세스 자체로 확장한 점이 핵심 기여다.  · 성과: 「지적과 국토정보」(Journal of Cadastre & Land Information) 제55권 제2호(한국국토정보공사, 2025.12, p.157–172) 게재, DOI 10.22640/lxsiri.2025.55.2.157. 보건의료 5개 데이터세트 약 14,217건 대상 평균 정제 성공률 99.18%(전 데이터세트 98% 이상), 타 도메인 5개 기관 교차검증 평균 95.33% 달성. 2024년도 중앙대학교 CAU GRS 지원 과제.",
-      "tech": [
-        "정규표현식 기반 구조 분석",
-        "의미기반 검증(하이브리드 접근)",
-        "Levenshtein distance 유사도 탐색",
-        "Address Class 표준 입력 포맷",
-        "행정안전부 도로명주소 API",
-        "통계청 법정동코드 DB",
-        "도로명주소DB",
-        "KS X ISO 19157 품질지표 체계"
-      ],
-      "keywordSnippet": ["주소 정제", "행정정합성", "KS X ISO 19157", "실증 연구"],
-      "links": []
+      "role": "데이터베이스 저장 · 주소 변환 모듈 · QLever 설정",
+      "description": "2024년 과제 산출물로 개발한 변환 도구를 개선한 버전이다. 그래프 인덱스 서버로 QLever를 도입하고 기존 모듈을 수정·최적화했다.",
+      "tech": ["QLever", "MySQL", "Python", "Linux"],
+      "keywordSnippet": ["QLever 도입", "모듈 최적화", "그래프 인덱스"],
+      "links": [],
+      "images": []
     },
     {
-      "name": "공공데이터 재사용성 향상을 위한 9차원 품질 진단 프레임워크의 설계와 실증",
+      "name": "주소 정제 모듈",
+      "category": "연구실 프로젝트",
+      "period": "2025",
+      "role": "연구실 프로젝트 (논문 산출)",
+      "description": "주소 지식그래프 구축 이전, 공공데이터에 존재하는 주소 정보를 정제하기 위한 모듈이다. 주소를 입력하면 정규식으로 구성요소별로 분리한 뒤, 오탈자·누락 항목을 수정해 주소 DB의 정답 주소값으로 정제한다. 연구실 내부에서 실제 구동되며 논문(AQRF)의 기반이 되었다.",
+      "tech": ["Python", "정규표현식", "주소 DB"],
+      "keywordSnippet": ["주소 정제", "구성요소 분리", "논문 산출"],
+      "links": [],
+      "images": []
+    },
+    {
+      "name": "Rule Studio",
+      "category": "연구실 프로젝트",
       "period": "2026",
-      "role": "제1저자 (안지은, 중앙대학교 문헌정보학과 석사과정; 교신저자 김학래 교수)",
-      "description": "공공데이터 CSV 파일의 재사용성을 자동으로 진단하는 9차원 품질평가 프레임워크를 제안한 연구다. 행정안전부 4대 지표와 ISO/IEC 25024 메트릭 체계를 기반으로 구조완결성·스키마안정성·의미중복도·재사용적합성·표준연계성 5개 차원을 추가하고, Gate 메커니즘과 참조데이터 기반 규칙엔진으로 자동화 진단 파이프라인을 구현했다. 산업통상자원부 산하 19개 기관의 CSV 1,258건을 실증분석하여 적시성(D4) 취약과 기관 간 품질 편차를 확인하고 기관 맞춤형 큐레이션의 필요성을 제시했다.  · 성과: 정보관리학회지 제43권 제2호(329-352면) 게재. 산업통상자원부 산하 19개 기관 CSV 1,258건 실증분석(전체 평균 77.7점 B등급)으로 김학래(2020) 91건 대비 약 14배 규모 분석 수행. 재사용적합성(D8)·표준연계성(D9)을 독립 차원으로 분리한 9차원 품질지표 체계 정의. 2024년도 중앙대학교 CAU GRS 지원.",
-      "tech": [
-        "Python",
-        "ISO",
-        "IEC 25024 측정 메트릭",
-        "Gate 메커니즘",
-        "참조데이터 기반 규칙엔진",
-        "CSV 파싱",
-        "인코딩 탐지(UTF-8",
-        "EUC-KR",
-        "CP949)",
-        "병렬처리(동시처리 30)",
-        "SQL",
-        "Semantic",
-        "Constant Metric 분류",
-        "임계값 기반 채점"
-      ],
-      "keywordSnippet": ["CSV 품질", "9차원 진단", "Gate 메커니즘", "재사용성"],
-      "links": []
+      "role": "백엔드·프론트엔드 전체 개발",
+      "description": "공공데이터의 형식(정규식), 참조데이터(코드·ID 등), 컬럼 간 참조 관계에 대한 규칙을 관리하는 도구다. 컬럼 유형별 정규식·참조데이터·컬럼 관계 정보를 정의하고 이를 개별 데이터세트에 매핑해, 향후 품질 검사에 활용할 수 있도록 제작했다.",
+      "tech": [],
+      "keywordSnippet": ["규칙 관리", "정규식·참조데이터", "품질 검사 연동"],
+      "links": [],
+      "images": [
+        { "src": "/static/img/projects/image3.png", "caption": "Rule Studio" },
+        { "src": "/static/img/projects/image4.png", "caption": "Rule Studio" },
+        { "src": "/static/img/projects/image5.png", "caption": "Rule Studio" }
+      ]
     },
     {
-      "name": "데이터 품질 검사 스킬 (data-quality-check-skill)",
-      "period": "",
-      "role": "",
-      "description": "테이블 형식 데이터 파일(CSV·TSV·XLSX·XLS)의 품질을 AIRD Part 2 품질 엔진으로 진단하는 Claude Skill이다. 자체 평가 로직 없이 외부 quality_check 엔진을 호출·오케스트레이션하며, 검사 도중 선택창(AskUserQuestion)으로 참조데이터·의존성 규칙 등 사용자 정의 입력을 수집한다. 진단 결과는 마크다운 표 리포트와 데이터 정제 가이드, 그리고 W3C DQV 기반 TTL로 산출한다.",
-      "tech": [
-        "Python 3.10+",
-        "pandas",
-        "numpy",
-        "openpyxl",
-        "Claude Skill",
-        "AIRD Part 2 품질 엔진",
-        "W3C DQV",
-        "TTL",
-        "RDF"
-      ],
-      "keywordSnippet": ["AIRD", "quality_check", "DQV", "정제 가이드"],
-      "links": []
-    },
-    {
-      "name": "linklear",
-      "period": "2025년 2학기 (지식표현연구 기말 과제)",
-      "role": "",
-      "description": "입력한 링크의 웹페이지를 크롤링·정제한 뒤 LLM으로 주제를 분석하고, 이를 그래프 데이터베이스에 저장해 질의응답까지 지원하는 AI 참고자료 정리 서비스다. 크롤링·그래프저장·저장·질의를 담당하는 4개 에이전트로 파이프라인을 분리했고, 사용자–링크–주제를 노드와 SAVED·ABOUT 관계로 표현하는 지식표현 구조를 실제 서비스에 적용했다. pip 설치형 패키지로 배포해 Colab 등 외부 환경에서도 재사용할 수 있게 했다.  · 성과: 정량적 성과 지표는 자료에 없음. 확인되는 결과물: GitHub 설치형 패키지로 배포해 Colab 등 외부 환경에서 재사용 가능, Railway(백엔드)+Vercel(프론트) 배포 구성 완료, 기말 발표자료 산출",
-      "tech": [
-        "Nuxt 3",
-        "FastAPI",
-        "uvicorn",
-        "Neo4j Aura",
-        "Groq (Llama 3.1 70B)",
-        "langchain",
-        "neo4j 드라이버",
-        "aiohttp",
-        "httpx",
-        "openpyxl",
-        "python-dotenv",
-        "Railway",
-        "Vercel"
-      ],
-      "keywordSnippet": ["링크 크롤링", "그래프 저장", "질의응답", "지식표현"],
-      "links": []
-    },
-    {
-      "name": "Linklear — URL 정리 에이전트 (지식표현연구 기말과제)",
-      "period": "",
-      "role": "개인 프로젝트 기획·설계·구현 (정보학 석사 지식표현연구 기말과제)",
-      "description": "저장한 URL을 체계적으로 정리·재탐색하지 못하는 문제에서 출발해, 링크를 붙여넣기만 하면 AI가 메타 정보를 수집하고 주제를 자동 분류·저장하는 URL 정리 에이전트 'Linklear'를 제안·구현했다. 채팅 질의로 질의어–링크 유사도를 계산해 원하는 자료와 연관 자료를 탐색하며, 그래프 구조 저장으로 주제 간 연관성까지 시각화한다. 역할을 분리한 4개 LLM 에이전트의 협업 구조와 Neo4j 지식그래프를 결합한 엔드투엔드 시스템이다.  · 성과: 역할을 분리한 4개 에이전트(CrawlerAgent·QueryAgent·StorageAgent·GraphAgent) 협업 구조 설계·구현, Neo4j 스키마 설계 및 규칙 기반 Cypher 생성으로 그래프 DB를 검색·추천에 적용, 질의어→주제어 추출→그래프 탐색→연관성 기반 우선순위 산출 검색 흐름 구현, 유튜브 링크 크롤링 예외와 유사·포괄 주제 오분류 문제를 프롬프트 개선(제목 핵심어 우선·기존 주제 목록 참조·구체 키워드 지향)으로 해결",
-      "tech": [
-        "Nuxt",
-        "Vue.js",
-        "FastAPI",
-        "Groq LLM Chain",
-        "llama3.3 70B",
-        "Neo4j Aura DB",
-        "Cypher"
-      ],
-      "keywordSnippet": ["URL 정리", "에이전트 협업", "Neo4j", "주제 분류"],
-      "links": []
+      "name": "품질 평가 엔진",
+      "category": "연구실 프로젝트",
+      "period": "2026",
+      "role": "연구실 프로젝트",
+      "description": "공공데이터의 컬럼별 품질 요소를 자동으로 검사하는 엔진이다. 완전성·정확성·일관성·기계가독성 등 7대 지표로 검사하며, 향후 Rule Studio와 연동해 기존 프로파일링/전처리 도구로는 평가·정제가 어려웠던 조직 내부 코드파일과 값 표현 규칙까지 품질 평가에 반영할 수 있도록 설계했다.",
+      "tech": ["Python"],
+      "keywordSnippet": ["7대 품질 지표", "자동 검사", "Rule Studio 연동"],
+      "links": [],
+      "images": []
     },
     {
       "name": "Linklear",
-      "period": "2025년 2학기 (지식표현연구 과목 기말 과제)",
-      "role": "",
-      "description": "링크를 입력하면 웹 크롤링으로 페이지 주제를 분석하고 Neo4j 그래프 DB에 저장한 뒤, 저장된 자료를 근거로 질의에 응답하는 AI 레퍼런스 정리 서비스. 좌측 채팅창에서 링크 추가·질문을 하고 우측 디렉토리에서 주제별로 정리된 자료를 확인하는 흐름으로 구성된다.",
-      "tech": [
-        "Nuxt 3",
-        "FastAPI",
-        "uvicorn",
-        "Neo4j Aura",
-        "Cypher",
-        "Groq(Llama 3.1 70B)",
-        "LangChain",
-        "aiohttp",
-        "openpyxl",
-        "python-dotenv",
-        "Python 3.12",
-        "Railway",
-        "Vercel"
-      ],
-      "keywordSnippet": ["링크 입력", "주제 분석", "그래프 DB", "디렉토리 탐색"],
-      "links": []
+      "category": "수업 프로젝트",
+      "period": "2025 (지식표현연구 기말과제)",
+      "role": "기획·설계·구현",
+      "description": "공부·개발 중 수집한 URL을 채팅창에 붙여넣으면, 에이전트가 링크 정보를 수집·분석하고 Cypher로 구조화해 지식베이스(Neo4j)에 저장한다. 반대로 이용자가 질의하면 지식베이스를 분석·쿼리해 필요한 순간에 링크를 빠르게 찾아준다. 일반적인 채팅 UI는 유지하되 뒤에서 4개 에이전트가 크롤링·저장·질의를 분담한다.",
+      "tech": ["Nuxt 3", "FastAPI", "Neo4j Aura", "Cypher", "Groq (Llama 3.1 70B)", "LangChain"],
+      "keywordSnippet": ["URL 정리", "에이전트 협업", "Neo4j", "질의응답"],
+      "links": [],
+      "images": []
     },
     {
-      "name": "character_kb_chatbot — 온톨로지 기반 캐릭터 챗봇",
-      "period": "",
-      "role": "개인별 역할 분담은 자료에 명시되지 않음. 자료가 근거하는 작업 범위: 온톨로지 설계·표준 어휘 매핑, 백엔드(FastAPI)·그래프 DB(KuzuDB) 스키마, 프론트(Vue), 패키지화 리팩토링, 스모크/QA 검증 전반",
-      "description": "그래프 DB(KuzuDB)에 캐릭터·사용자·세계·이벤트·감정·기억 등을 온톨로지 스키마로 저장하고, LLM 대화 중 이 지식 그래프를 조회·갱신하는 캐릭터 챗봇 패키지다. FastAPI 백엔드와 Vue 3/Vite 프론트로 구성되며, 대화 오케스트레이션·정보 추출·SHACL 기반 그래프 편집 검증을 갖췄다. 감정(Ekman 6대·PAD)·성격(Big Five) 모델과 한국어 형태소 분석을 포함하고, 구조는 ROAD 온톨로지에서 영감을 받았다.  · 성과: 패키지화 1단계 완료·검증(11개 파일 import 전환 + __init__.py 1개, 잔존 bare 내부 import 0건, compileall exit 0, 전 스모크 통과); 동작 보존 확인(validate.py 결과가 베이스라인과 동일 — Characters 2/Users 1/World·Loc 1·1/Event 1/EmotionalState 1/KNOWS 2); import 성능 측정(engine 0.9s, backend.runtime 0.8s, backend.chatlog 1.5s, ConversationRuntime 인스턴스화 0.0s); SHACL 무결성(shapes.ttl 파싱 OK, 103 트리플); 런타임 이슈 원인 규명(import backend.app 45s+ 행 → google.generativeai 워밍업의 GIL 점유로 국소화, ONTO_SKIP_WARMUP 가드로 회피); 대형 모듈 진단(runtime.py 995줄/chat.py 933줄/extraction.py 683줄 식별 및 분리 계획 수립)",
-      "tech": [
-        "Python 3.13",
-        "FastAPI",
-        "uvicorn",
-        "Pydantic v2",
-        "KuzuDB",
-        "OpenAI",
-        "Anthropic",
-        "Google Generative AI",
-        "rdflib",
-        "pyshacl(SHACL)",
-        "TTL",
-        "Turtle",
-        "kiwipiepy",
-        "Vue 3",
-        "Vite"
-      ],
-      "keywordSnippet": ["온톨로지", "KuzuDB", "SHACL", "캐릭터 챗봇"],
-      "links": []
+      "name": "온톨로지 캐릭터 챗봇 (character_kb_chatbot)",
+      "category": "개인 프로젝트",
+      "period": "2026",
+      "role": "개인 프로젝트",
+      "description": "캐릭터 챗봇의 컨텍스트 윈도우 한계를 지식그래프로 보완한 프로젝트다. 대화 내용을 지식그래프 형식으로 변환해 KuzuDB에 저장하면 적은 메모리로도 대화 맥락을 효율적으로 프롬프트에 전달할 수 있다고 보았다. 대화 생성 에이전트와 대화 내용 변환 에이전트를 분리해 LLM API로 구현했다.",
+      "tech": ["Python", "KuzuDB", "LLM API", "지식그래프"],
+      "keywordSnippet": ["온톨로지", "KuzuDB", "대화 맥락 저장", "에이전트 분리"],
+      "links": [],
+      "images": []
+    },
+    {
+      "name": "Career-Support",
+      "category": "개인 프로젝트",
+      "period": "2026",
+      "role": "개인 프로젝트",
+      "description": "포트폴리오 정리를 위해 개인적으로 개발한 앱이다. 포트폴리오를 정리한 디렉토리를 읽어 에이전트가 각 프로젝트의 요약문을 자동으로 작성·정리해 준다.",
+      "tech": [],
+      "keywordSnippet": ["포트폴리오 정리", "자동 요약", "에이전트"],
+      "links": [],
+      "images": []
+    },
+    {
+      "name": "Quality-Check SKILL",
+      "category": "개인 프로젝트",
+      "period": "2026",
+      "role": "개인 프로젝트",
+      "description": "Claude에서 데이터를 활용하기 전에 데이터 품질을 분석하고 적절한 전처리 방안을 도출해, 이를 프롬프트에 피딩함으로써 분석 정확성을 높이기 위한 스킬이다. CSV/XLSX를 입력하고 스킬을 실행하면 데이터 전반·컬럼별 품질을 분석해 시각화와 개선점을 함께 제공한다.",
+      "tech": ["Python", "데이터 품질 관리"],
+      "keywordSnippet": ["데이터 품질", "전처리 도출", "시각화", "Claude Skill"],
+      "links": [],
+      "images": []
     }
   ],
   "awards": [
