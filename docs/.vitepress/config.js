@@ -5,6 +5,16 @@ export default {
   async transformPageData(pageData) {
     pageData.frontmatter.head ??= [];
 
+    // 프로젝트 상세 페이지(docs/projects/[slug].md): 제목·설명·대표 이미지를 portfolio.json 에서 채운다
+    if (pageData.params && pageData.relativePath.startsWith("projects/")) {
+      const { title, description, img } = pageData.params;
+      pageData.title = title;
+      pageData.description = description;
+      pageData.frontmatter.title = title;
+      pageData.frontmatter.description = description;
+      if (img) pageData.frontmatter.img = img;
+    }
+
     let newheader = getJSONLD(pageData);
     pageData.frontmatter.head.push([
       "script",

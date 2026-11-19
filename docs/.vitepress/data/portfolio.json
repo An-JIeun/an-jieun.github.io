@@ -111,6 +111,7 @@
   "projects": [
     {
       "name": "Vannevar — 공공데이터 정제 도구",
+      "slug": "vannevar",
       "category": "연구실 내부 프로젝트",
       "period": "2023",
       "role": "정제 파이프라인 설계·구현 · 외부 개발자 협업",
@@ -126,10 +127,12 @@
         "데이터 품질"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "주소정보 활용 페이지",
+      "slug": "address-info-portal",
       "category": "연구실 내부 프로젝트",
       "period": "2024",
       "role": "'주소 지식그래프 활용 환경 마련' 과제 산출물 · 웹 서비스 개발",
@@ -145,10 +148,12 @@
         "API"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "주소 데이터 가이드",
+      "slug": "address-data-guide",
       "category": "연구실 내부 프로젝트",
       "period": "2024",
       "role": "페이지 전반 개발 · 정제 파트 작성",
@@ -171,10 +176,12 @@
           "src": "/static/img/projects/image2.png",
           "caption": "주소 데이터 가이드"
         }
-      ]
+      ],
+      "videos": []
     },
     {
       "name": "Knowledge Factory — 주소 지식그래프 변환 도구",
+      "slug": "knowledge-factory",
       "category": "연구실 내부 프로젝트",
       "period": "2024",
       "role": "데이터 업데이트·지식그래프 변환 모듈 개발",
@@ -189,10 +196,12 @@
         "pipeline"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "Entity Search",
+      "slug": "entity-search",
       "category": "연구실 내부 프로젝트",
       "period": "2024",
       "role": "엔티티 통합·연계 조회 데모 개발",
@@ -208,10 +217,12 @@
         "데이터 연계"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "주소 지식그래프 관리 도구",
+      "slug": "address-kg-manager",
       "category": "연구실 내부 프로젝트",
       "period": "2025",
       "role": "DB 저장·주소 변환 모듈 · QLever 설정",
@@ -228,10 +239,12 @@
         "그래프 인덱싱"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "주소 정제 모듈",
+      "slug": "address-cleansing-module",
       "category": "연구실 내부 프로젝트",
       "period": "2025",
       "role": "정제 로직 설계·구현 (논문 AQRF 기반)",
@@ -242,10 +255,12 @@
         "데이터 품질"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "Rule Studio",
+      "slug": "rule-studio",
       "category": "연구실 내부 프로젝트",
       "period": "2026",
       "role": "백엔드·프론트엔드 단독 개발",
@@ -271,10 +286,12 @@
           "src": "/static/img/projects/image5.png",
           "caption": "Rule Studio"
         }
-      ]
+      ],
+      "videos": []
     },
     {
       "name": "공공데이터 품질 평가 엔진",
+      "slug": "quality-engine",
       "category": "연구실 내부 프로젝트",
       "period": "2026",
       "role": "품질 진단 엔진 설계·구현",
@@ -288,10 +305,12 @@
         "Rule Studio 연동"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "Linklear",
+      "slug": "linklear",
       "category": "개인 프로젝트",
       "period": "2025 (지식표현연구 기말과제)",
       "role": "기획·설계·구현",
@@ -311,10 +330,12 @@
         "질의응답"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "온톨로지 캐릭터 챗봇 (character_kb_chatbot)",
+      "slug": "character-kb-chatbot",
       "category": "개인 프로젝트",
       "period": "2026",
       "role": "개인 프로젝트 · 전체 설계·구현",
@@ -332,10 +353,12 @@
         "에이전트 분리"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "Career-Support",
+      "slug": "career-support",
       "category": "개인 프로젝트",
       "period": "2026",
       "role": "개인 프로젝트 · 기획·구현",
@@ -345,10 +368,12 @@
       ],
       "keywordSnippet": [],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     },
     {
       "name": "Quality-Check SKILL",
+      "slug": "quality-check-skill",
       "category": "개인 프로젝트",
       "period": "2026",
       "role": "개인 프로젝트 · 설계·구현",
@@ -361,7 +386,8 @@
         "시각화"
       ],
       "links": [],
-      "images": []
+      "images": [],
+      "videos": []
     }
   ],
   "awards": [

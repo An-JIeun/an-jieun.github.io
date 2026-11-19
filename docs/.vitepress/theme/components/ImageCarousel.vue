@@ -1,11 +1,12 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onBeforeUnmount } from 'vue'
 import { useAdmin } from '../composables/useAdmin'
 import EditableText from './EditableText.vue'
 
 const props = defineProps({
   owner: { type: Object, required: true }, // 이미지 배열을 가진 객체(프로젝트)
   field: { type: String, default: 'images' },
+  large: { type: Boolean, default: false }, // 상세 페이지용 큰 화면
 })
 
 const { isAdmin, markDirty } = useAdmin()
@@ -72,13 +73,32 @@ function next() {
 function go(i) {
   idx.value = i
 }
+
+// ── 크게 보기(라이트박스) ──
+const zoomed = ref(false)
+function onZoomKey(e) {
+  if (e.key === 'Escape') closeZoom()
+  else if (e.key === 'ArrowLeft') prev()
+  else if (e.key === 'ArrowRight') next()
+}
+function openZoom() {
+  if (typeof window === 'undefined') return
+  zoomed.value = true
+  window.addEventListener('keydown', onZoomKey)
+}
+function closeZoom() {
+  zoomed.value = false
+  if (typeof window !== 'undefined') window.removeEventListener('keydown', onZoomKey)
+}
+onBeforeUnmount(closeZoom)
 </script>
 
 <template>
-  <div v-if="images.length || isAdmin" class="ic">
+  <div v-if="images.length || isAdmin" class="ic" :class="{ 'ic--lg': large }">
     <div v-if="images.length" class="ic-stage">
       <button v-if="images.length > 1" class="ic-nav ic-prev no-print" type="button" aria-label="이전" @click="prev">‹</button>
-      <img class="ic-img" :src="images[idx].src" :alt="images[idx].caption || ''" />
+      <img class="ic-img" :src="images[idx].src" :alt="images[idx].caption || ''"
+           title="클릭하면 크게 볼 수 있습니다" @click="openZoom" />
       <button v-if="images.length > 1" class="ic-nav ic-next no-print" type="button" aria-label="다음" @click="next">›</button>
       <button v-if="isAdmin" class="ic-del no-print" type="button" title="이 사진 삭제" @click="removeCurrent">🗑</button>
       <span v-if="images.length > 1" class="ic-count no-print">{{ idx + 1 }} / {{ images.length }}</span>
@@ -101,6 +121,18 @@ function go(i) {
       </label>
       <button class="ic-btn" type="button" @click="addByUrl">URL로 추가</button>
     </div>
+
+    <Teleport v-if="zoomed && images.length" to="body">
+      <div class="ic-lightbox" role="dialog" aria-modal="true" aria-label="사진 크게 보기" @click.self="closeZoom">
+        <button class="ic-lb-close" type="button" aria-label="닫기" @click="closeZoom">×</button>
+        <button v-if="images.length > 1" class="ic-nav ic-prev" type="button" aria-label="이전" @click="prev">‹</button>
+        <img class="ic-lb-img" :src="images[idx].src" :alt="images[idx].caption || ''" @click="closeZoom" />
+        <button v-if="images.length > 1" class="ic-nav ic-next" type="button" aria-label="다음" @click="next">›</button>
+        <span v-if="images[idx].caption || images.length > 1" class="ic-lb-caption">
+          {{ images[idx].caption }}<template v-if="images.length > 1"> ({{ idx + 1 }} / {{ images.length }})</template>
+        </span>
+      </div>
+    </Teleport>
   </div>
 </template>
 
@@ -121,6 +153,57 @@ function go(i) {
   max-width: 100%;
   max-height: 340px;
   object-fit: contain;
+  cursor: zoom-in;
+}
+.ic--lg .ic-stage { min-height: 240px; border-radius: 12px; }
+.ic--lg .ic-img { max-height: min(560px, 70vh); }
+
+/* 라이트박스 */
+.ic-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 64px;
+  background: rgba(0, 0, 0, 0.86);
+}
+/* 작은 스크린샷도 화면에 맞춰 키워서 보여준다 */
+.ic-lb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  cursor: zoom-out;
+}
+.ic-lightbox .ic-nav { width: 44px; height: 44px; font-size: 1.6rem; background: rgba(255, 255, 255, 0.14); }
+.ic-lightbox .ic-nav:hover { background: rgba(255, 255, 255, 0.28); }
+.ic-lightbox .ic-prev { left: 12px; }
+.ic-lightbox .ic-next { right: 12px; }
+.ic-lb-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.ic-lb-caption {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.85rem;
+}
+@media (max-width: 640px) {
+  .ic-lightbox { padding: 56px 8px; }
 }
 .ic-nav {
   position: absolute;

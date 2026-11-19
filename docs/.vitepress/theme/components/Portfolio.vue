@@ -1,6 +1,8 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
+import { withBase } from 'vitepress'
 import { useAdmin } from '../composables/useAdmin'
+import { groupProjects, projectPath, projectSlug, stripHtml } from '../projects.js'
 import EditableText from './EditableText.vue'
 import AdminBar from './AdminBar.vue'
 import ImageCarousel from './ImageCarousel.vue'
@@ -30,36 +32,15 @@ const T = {
   cert: { name: '자격명', org: '', date: '', id: '' },
   education: { org: '학교', degree: '', period: '' },
   paper: { title: '논문 제목', authors: '', venue: '', year: '', doi: '', description: '', links: [] },
-  project: { name: '새 프로젝트', category: '개인 프로젝트', period: '', role: '', description: '', tech: [], keywordSnippet: [], links: [], images: [] },
+  project: { name: '새 프로젝트', slug: '', category: '개인 프로젝트', period: '', role: '', description: '', detail: '', tech: [], keywordSnippet: [], links: [], images: [], videos: [] },
   projLink: { label: '링크', url: 'https://' },
 }
 
-// 프로젝트를 category 별로 그룹핑
-const PROJECT_ORDER = ['연구실 내부 프로젝트', '개인 프로젝트']
-const groupedProjects = computed(() => {
-  const groups = {}
-  ;(data.projects || []).forEach((p, idx) => {
-    const cat = p.category || '기타'
-    if (!groups[cat]) groups[cat] = []
-    groups[cat].push({ project: p, idx })
-  })
-  const ordered = []
-  PROJECT_ORDER.forEach((c) => {
-    if (groups[c]) { ordered.push({ cat: c, items: groups[c] }); delete groups[c] }
-  })
-  Object.keys(groups).forEach((c) => ordered.push({ cat: c, items: groups[c] }))
-  return ordered
-})
+// 프로젝트를 category 별로 그룹핑 (순서 규칙은 상세 페이지의 이전/다음과 공유)
+const groupedProjects = computed(() => groupProjects(data.projects))
 
-const openProjects = ref([])
-function toggleProject(i) {
-  const pos = openProjects.value.indexOf(i)
-  if (pos === -1) openProjects.value.push(i)
-  else openProjects.value.splice(pos, 1)
-}
-function isProjectOpen(i) {
-  return openProjects.value.includes(i)
-}
+// 프로젝트 상세 페이지 주소 (/projects/<slug>.html)
+const projectHref = (project, idx) => withBase(projectPath(project, idx))
 
 function printPage() {
   if (typeof window !== 'undefined') window.print()
@@ -76,7 +57,7 @@ const icons = {
 const PROJECT_SUMMARY_LIMIT = 88
 
 function getProjectSummary(project) {
-  const sourceText = (project.summary || project.description || '').split('· 성과:')[0].trim()
+  const sourceText = stripHtml(project.summary || project.description).split('· 성과:')[0].trim()
   if (!sourceText) return ''
   if (sourceText.length <= PROJECT_SUMMARY_LIMIT) return sourceText
   return `${sourceText.slice(0, PROJECT_SUMMARY_LIMIT - 1).trimEnd()}…`
@@ -266,34 +247,38 @@ function getProjectSnippets(project) {
     </section>
 
     <!-- ── Projects ── -->
-    <section v-if="(data.projects && data.projects.length) || isAdmin" class="pf-section pf-section--projects">
+    <section v-if="(data.projects && data.projects.length) || isAdmin" id="projects" class="pf-section pf-section--projects">
       <h2 class="pf-h2">Projects</h2>
       <div v-for="g in groupedProjects" :key="g.cat" class="pf-projgroup">
         <h3 class="pf-projgrouptitle">{{ g.cat }}</h3>
         <div class="pf-projlist">
           <div v-for="it in g.items" :key="it.idx" class="pf-projitem">
-            <!-- 방문자: 클릭해서 펼치는 버튼 -->
-            <button v-if="!isAdmin" type="button" class="pf-projrow" :class="{ 'is-open': isProjectOpen(it.idx) }"
-                    :aria-expanded="isProjectOpen(it.idx)" @click="toggleProject(it.idx)">
-              <span class="pf-projcaret" aria-hidden="true">▸</span>
+            <!-- 방문자: 클릭하면 프로젝트 상세 페이지로 이동 -->
+            <a v-if="!isAdmin" class="pf-projrow" :href="projectHref(it.project, it.idx)">
               <span class="pf-projmain">
                 <span class="pf-projname">{{ it.project.name }}</span>
                 <span v-if="it.project.period" class="pf-projmeta"> · {{ it.project.period }}</span>
                 <span v-if="it.project.role" class="pf-projmeta"> · {{ it.project.role }}</span>
                 <span v-if="getProjectSummary(it.project)" class="pf-projsummary">{{ getProjectSummary(it.project) }}</span>
               </span>
-            </button>
-            <!-- 관리자: 토글 없이 편집용 헤더 (필드 클릭 = 편집) -->
+              <span class="pf-projgo no-print" aria-hidden="true">→</span>
+            </a>
+            <!-- 관리자: 편집용 헤더 (필드 클릭 = 편집) -->
             <div v-else class="pf-projrow pf-projrow--edit">
               <span class="pf-projmain pf-projmain--edit">
                 <EditableText :obj="it.project" field="name" inline placeholder="프로젝트명" />
                 <span class="pf-projmeta"> · <EditableText :obj="it.project" field="period" inline placeholder="기간" /></span>
                 <span class="pf-projmeta"> · <EditableText :obj="it.project" field="role" inline placeholder="역할" /></span>
+                <span class="pf-projslug no-print">
+                  주소: /projects/<EditableText :obj="it.project" field="slug" inline :placeholder="projectSlug(it.project, it.idx)" />.html
+                  <a :href="projectHref(it.project, it.idx)">상세 페이지 열기 →</a>
+                </span>
               </span>
               <button class="pf-del no-print" type="button" title="프로젝트 삭제" @click="removeFrom(data.projects, it.idx)">삭제</button>
             </div>
 
-            <div v-show="isProjectOpen(it.idx) || isAdmin" class="pf-projdetail">
+            <!-- 상세 내용: 관리자 편집 화면과 인쇄(PDF)에서만 펼쳐 보인다 -->
+            <div v-show="isAdmin" class="pf-projdetail">
               <div v-if="it.project.description || isAdmin" class="pf-desc">
                 <EditableText :obj="it.project" field="description" rich placeholder="프로젝트 설명" />
               </div>
@@ -466,15 +451,21 @@ function getProjectSnippets(project) {
 .pf-projlist { display: flex; flex-direction: column; }
 .pf-projitem { border-bottom: 1px solid var(--vp-c-divider); }
 .pf-projrow {
-  display: flex; align-items: baseline; gap: 10px; width: 100%;
-  padding: 10px 2px; margin: 0;
-  background: none; border: none; cursor: pointer;
-  text-align: left; color: inherit; font: inherit;
+  display: flex; align-items: center; gap: 12px; width: 100%;
+  padding: 12px 8px; margin: 0;
+  background: none; border: none; border-radius: 8px; cursor: pointer;
+  text-align: left; color: inherit; font: inherit; text-decoration: none;
+  transition: background .15s ease;
 }
 .pf-projrow--edit { cursor: default; align-items: flex-start; }
 .pf-projrow:hover:not(.pf-projrow--edit) { background: var(--vp-c-bg-soft); }
-.pf-projcaret { flex-shrink: 0; font-size: .75rem; color: var(--vp-c-text-3); transition: transform .18s ease; }
-.pf-projrow.is-open .pf-projcaret { transform: rotate(90deg); }
+.pf-projgo {
+  flex-shrink: 0; font-size: .95rem; color: var(--vp-c-text-3);
+  transition: transform .18s ease, color .18s ease;
+}
+.pf-projrow:hover .pf-projgo { transform: translateX(3px); color: var(--vp-c-brand-1); }
+.pf-projslug { display: block; margin-top: 4px; font-size: .74rem; color: var(--vp-c-text-3); }
+.pf-projslug a { margin-left: 8px; font-weight: 600; color: var(--vp-c-brand-1); }
 .pf-projmain { min-width: 0; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .pf-projmain--edit { white-space: normal; overflow: visible; }
 .pf-projname { font-weight: 700; font-size: .96rem; color: var(--vp-c-text-1); }
@@ -521,7 +512,7 @@ function getProjectSnippets(project) {
   .pf-section--projects { break-before: page; page-break-before: always; }
   .pf-projitem { break-inside: avoid; }
   .pf-projmain { white-space: normal; overflow: visible; } /* 프로젝트명·역할 전체 표시 */
-  .pf-projcaret { display: none; }
+  .pf-projrow { padding: 10px 2px; }
   .pf-projsummary { display: none !important; } /* 미리보기(요약) 텍스트 숨김 */
   .pf-projdetail { display: block !important; } /* 전체 설명만 펼쳐서 표시 */
   a { text-decoration: none; }
