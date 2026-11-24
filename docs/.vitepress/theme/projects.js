@@ -6,8 +6,11 @@
 // 양쪽이 같은 규칙을 쓰도록 여기 한 곳에 모아 둔다.
 // ────────────────────────────────────────────────────────────────
 
-// 목록에서 카테고리를 보여줄 순서 (나머지 카테고리는 뒤에 등장 순서대로)
+// 같은 연도 안에서 카테고리를 보여줄 순서 (나머지 카테고리는 뒤에 등장 순서대로)
 export const PROJECT_ORDER = ['연구실 내부 프로젝트', '개인 프로젝트']
+
+// 연도를 알 수 없는 프로젝트가 모이는 그룹 이름 (목록 맨 아래)
+export const NO_YEAR_LABEL = '연도 미정'
 
 // 상세 페이지 주소에 쓰는 slug. portfolio.json 의 slug 가 비어 있으면 순번으로 대체한다.
 export function projectSlug(project, idx) {
@@ -19,28 +22,40 @@ export function projectPath(project, idx) {
   return `/projects/${encodeURIComponent(projectSlug(project, idx))}.html`
 }
 
-// 카테고리별로 묶기 → [{ cat, items: [{ project, idx }] }]
-export function groupProjects(projects) {
-  const groups = {}
-  ;(projects || []).forEach((p, idx) => {
-    const cat = p.category || '기타'
-    if (!groups[cat]) groups[cat] = []
-    groups[cat].push({ project: p, idx })
+// period 문자열에서 연도 추출. "2023 ~ 2025" 처럼 여러 개면 가장 최근(끝) 연도,
+// "현재·진행 중" 이 들어 있으면 올해로 본다. 연도가 없으면 null.
+export function projectYear(project) {
+  const s = String((project && project.period) || '')
+  if (/현재|진행\s*중|present|ongoing/i.test(s)) return new Date().getFullYear()
+  const years = (s.match(/(?:19|20)\d{2}/g) || []).map(Number)
+  return years.length ? Math.max(...years) : null
+}
+
+// 연도별로 묶기 (최신 연도가 위) → [{ year, label, items: [{ project, idx }] }]
+// 같은 연도 안에서는 카테고리 순서(PROJECT_ORDER) → portfolio.json 에 적힌 순서.
+export function groupProjectsByYear(projects) {
+  const catRank = (p) => {
+    const r = PROJECT_ORDER.indexOf(p.category)
+    return r === -1 ? PROJECT_ORDER.length : r
+  }
+  const rows = (projects || []).map((p, idx) => ({ project: p, idx, year: projectYear(p) }))
+  rows.sort((a, b) =>
+    (b.year ?? -Infinity) - (a.year ?? -Infinity) ||
+    catRank(a.project) - catRank(b.project) ||
+    a.idx - b.idx
+  )
+  const groups = []
+  rows.forEach(({ project, idx, year }) => {
+    const last = groups[groups.length - 1]
+    if (last && last.year === year) last.items.push({ project, idx })
+    else groups.push({ year, label: year == null ? NO_YEAR_LABEL : String(year), items: [{ project, idx }] })
   })
-  const ordered = []
-  PROJECT_ORDER.forEach((c) => {
-    if (groups[c]) {
-      ordered.push({ cat: c, items: groups[c] })
-      delete groups[c]
-    }
-  })
-  Object.keys(groups).forEach((c) => ordered.push({ cat: c, items: groups[c] }))
-  return ordered
+  return groups
 }
 
 // 화면에 보이는 순서 그대로 펼친 목록 (상세 페이지의 이전/다음 이동용)
 export function orderedProjects(projects) {
-  return groupProjects(projects).flatMap((g) => g.items)
+  return groupProjectsByYear(projects).flatMap((g) => g.items)
 }
 
 // 서식(HTML)이 들어간 설명에서 태그를 걷어낸 순수 텍스트

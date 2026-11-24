@@ -1,14 +1,14 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref, toRaw } from 'vue'
 import { withBase } from 'vitepress'
 import { useAdmin } from '../composables/useAdmin'
-import { groupProjects, projectPath, projectSlug, stripHtml } from '../projects.js'
+import { groupProjectsByYear, projectPath, projectSlug, projectYear, stripHtml } from '../projects.js'
 import EditableText from './EditableText.vue'
 import AdminBar from './AdminBar.vue'
 import ImageCarousel from './ImageCarousel.vue'
 
 // 관리자 편집 스토어 — content 가 화면에 렌더되는 실제(편집 가능) 데이터
-const { content, isAdmin, markDirty } = useAdmin()
+const { content, isAdmin, markDirty, revision } = useAdmin()
 const data = content // 아래 템플릿에서 기존처럼 data.* 로 읽기 위한 별칭
 
 // ── 항목 추가/삭제 헬퍼 ──
@@ -36,8 +36,35 @@ const T = {
   projLink: { label: '링크', url: 'https://' },
 }
 
-// 프로젝트를 category 별로 그룹핑 (순서 규칙은 상세 페이지의 이전/다음과 공유)
-const groupedProjects = computed(() => groupProjects(data.projects))
+// 프로젝트를 연도별(최신순)로 그룹핑 (순서 규칙은 상세 페이지의 이전/다음과 공유)
+// 관리자 편집 중에는 '기간'을 한 글자씩 고칠 때마다 항목이 다른 연도로 튀어
+// 입력 포커스를 잃지 않도록, 필드에서 포커스가 빠질 때(layoutTick)만 재정렬한다.
+const layoutTick = ref(0)
+function relayoutProjects() {
+  if (isAdmin.value) layoutTick.value++
+}
+const groupedProjects = computed(() => {
+  layoutTick.value
+  revision.value
+  const list = data.projects || []
+  if (!isAdmin.value) return groupProjectsByYear(list)
+  void list.length // 추가·삭제는 즉시 반영
+  return groupProjectsByYear(toRaw(list)).map((g) => ({
+    ...g,
+    items: g.items.map((it) => ({ project: list[it.idx], idx: it.idx })),
+  }))
+})
+
+// 연도 헤더와 같은 값이면 기간은 생략, "2025 (기말과제)" 처럼 덧붙인 정보가 있을 때만 표시
+function projectPeriodNote(project) {
+  const period = String(project.period || '').trim()
+  return period && period !== String(projectYear(project)) ? period : ''
+}
+
+// "연구실 내부 프로젝트" → "연구실 내부" (행 안의 작은 라벨용)
+function projectCategoryLabel(project) {
+  return String(project.category || '').replace(/\s*프로젝트$/, '').trim()
+}
 
 // 프로젝트 상세 페이지 주소 (/projects/<slug>.html)
 const projectHref = (project, idx) => withBase(projectPath(project, idx))
@@ -249,15 +276,19 @@ function getProjectSnippets(project) {
     <!-- ── Projects ── -->
     <section v-if="(data.projects && data.projects.length) || isAdmin" id="projects" class="pf-section pf-section--projects">
       <h2 class="pf-h2">Projects</h2>
-      <div v-for="g in groupedProjects" :key="g.cat" class="pf-projgroup">
-        <h3 class="pf-projgrouptitle">{{ g.cat }}</h3>
+      <div v-for="g in groupedProjects" :key="g.label" class="pf-yeargroup" @focusout="relayoutProjects">
+        <h3 class="pf-yearhead">
+          <span class="pf-year">{{ g.label }}</span>
+          <span class="pf-yearcount">{{ g.items.length }} {{ g.items.length === 1 ? 'project' : 'projects' }}</span>
+        </h3>
         <div class="pf-projlist">
           <div v-for="it in g.items" :key="it.idx" class="pf-projitem">
             <!-- 방문자: 클릭하면 프로젝트 상세 페이지로 이동 -->
             <a v-if="!isAdmin" class="pf-projrow" :href="projectHref(it.project, it.idx)">
               <span class="pf-projmain">
                 <span class="pf-projname">{{ it.project.name }}</span>
-                <span v-if="it.project.period" class="pf-projmeta"> · {{ it.project.period }}</span>
+                <span v-if="projectCategoryLabel(it.project)" class="pf-projcat">{{ projectCategoryLabel(it.project) }}</span>
+                <span v-if="projectPeriodNote(it.project)" class="pf-projmeta"> · {{ projectPeriodNote(it.project) }}</span>
                 <span v-if="it.project.role" class="pf-projmeta"> · {{ it.project.role }}</span>
                 <span v-if="getProjectSummary(it.project)" class="pf-projsummary">{{ getProjectSummary(it.project) }}</span>
               </span>
@@ -267,7 +298,8 @@ function getProjectSnippets(project) {
             <div v-else class="pf-projrow pf-projrow--edit">
               <span class="pf-projmain pf-projmain--edit">
                 <EditableText :obj="it.project" field="name" inline placeholder="프로젝트명" />
-                <span class="pf-projmeta"> · <EditableText :obj="it.project" field="period" inline placeholder="기간" /></span>
+                <span class="pf-projmeta"> · <EditableText :obj="it.project" field="category" inline placeholder="카테고리" /></span>
+                <span class="pf-projmeta"> · <EditableText :obj="it.project" field="period" inline placeholder="기간 (예: 2026)" /></span>
                 <span class="pf-projmeta"> · <EditableText :obj="it.project" field="role" inline placeholder="역할" /></span>
                 <span class="pf-projslug no-print">
                   주소: /projects/<EditableText :obj="it.project" field="slug" inline :placeholder="projectSlug(it.project, it.idx)" />.html
@@ -440,16 +472,40 @@ function getProjectSnippets(project) {
   border-radius: 50%; font-size: .78rem;
 }
 
-/* 프로젝트 — 카테고리 그룹(논문·연구실·개인) + 한 줄 스니펫 + 클릭 시 펼침 */
-.pf-projgroup { margin-top: 18px; }
-.pf-projgroup:first-of-type { margin-top: 0; }
-.pf-projgrouptitle {
-  font-size: .82rem; font-weight: 700; letter-spacing: .03em;
-  color: var(--vp-c-brand-1); margin: 0 0 4px;
-  text-transform: uppercase;
+/* 프로젝트 — 연도 그룹(최신순): 왼쪽 연도 기둥 + 오른쪽 목록 */
+.pf-yeargroup {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  column-gap: 20px;
+  padding: 22px 0 6px;
+  border-top: 2px solid var(--vp-c-divider);
 }
-.pf-projlist { display: flex; flex-direction: column; }
-.pf-projitem { border-bottom: 1px solid var(--vp-c-divider); }
+.pf-yeargroup:first-of-type { border-top: none; padding-top: 4px; }
+.pf-yearhead {
+  align-self: start;
+  position: sticky;
+  top: calc(var(--vp-nav-height, 64px) + 16px);
+  display: flex; flex-direction: column; gap: 6px;
+  margin: 0; padding-top: 10px;
+}
+.pf-year {
+  font-size: 1.7rem; font-weight: 800; line-height: 1;
+  letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+  color: var(--vp-c-brand-1);
+}
+.pf-yearcount { font-size: .74rem; font-weight: 500; color: var(--vp-c-text-3); }
+.pf-projlist {
+  display: flex; flex-direction: column;
+  border-left: 2px solid var(--vp-c-brand-soft);
+  padding-left: 12px;
+}
+.pf-projitem + .pf-projitem { border-top: 1px solid var(--vp-c-divider); }
+.pf-projcat {
+  display: inline-block; vertical-align: 2px;
+  margin-left: 8px; padding: 1px 7px; border-radius: 5px;
+  font-size: .7rem; font-weight: 600;
+  background: var(--vp-c-default-soft); color: var(--vp-c-text-2);
+}
 .pf-projrow {
   display: flex; align-items: center; gap: 12px; width: 100%;
   padding: 12px 8px; margin: 0;
@@ -494,6 +550,11 @@ function getProjectSnippets(project) {
   .pf-meta, .pf-links, .pf-actions { justify-content: center; }
   .pf-cols2 { grid-template-columns: 1fr; gap: 16px; }
   .pf-cols2 > .pf-section { margin-top: 0; }
+  /* 좁은 화면: 연도를 목록 위 한 줄 헤더로 */
+  .pf-yeargroup { grid-template-columns: minmax(0, 1fr); padding-top: 18px; }
+  .pf-yearhead { position: static; flex-direction: row; align-items: baseline; gap: 10px; padding: 0 0 8px; }
+  .pf-year { font-size: 1.4rem; }
+  .pf-projlist { padding-left: 10px; }
 }
 
 /* ── 인쇄 / PDF ── */
@@ -511,6 +572,9 @@ function getProjectSnippets(project) {
   .pf-card { break-inside: avoid; }
   .pf-section--projects { break-before: page; page-break-before: always; }
   .pf-projitem { break-inside: avoid; }
+  /* 인쇄: 연도를 목록 위 헤더로 (본문 폭 확보), 헤더가 페이지 끝에 홀로 남지 않게 */
+  .pf-yeargroup { grid-template-columns: minmax(0, 1fr); }
+  .pf-yearhead { position: static; flex-direction: row; align-items: baseline; gap: 10px; padding: 0 0 6px; break-after: avoid; page-break-after: avoid; }
   .pf-projmain { white-space: normal; overflow: visible; } /* 프로젝트명·역할 전체 표시 */
   .pf-projrow { padding: 10px 2px; }
   .pf-projsummary { display: none !important; } /* 미리보기(요약) 텍스트 숨김 */
